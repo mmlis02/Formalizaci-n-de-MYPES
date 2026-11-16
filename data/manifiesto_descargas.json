@@ -1,0 +1,97 @@
+{
+  "ley30877": {
+    "fecha_descarga": "2026-11-16T09:59:39",
+    "tipo": "documento",
+    "archivo": "ley30877.pdf",
+    "url_pdf": "https://cdn.www.gob.pe/uploads/document/file/1857260/Ley%20N%C2%B0%2030877.pdf.pdf",
+    "bytes": 227601,
+    "sha256": "2a56d9f3b5d0781b83375836097219c032f63fa33b3c71e40d714fec998b80ef"
+  },
+  "ley31866": {
+    "fecha_descarga": "2026-11-16T09:59:39",
+    "tipo": "documento",
+    "archivo": "ley31866.pdf",
+    "url_pdf": "https://busquedas.elperuano.pe/api/archivo/file/6jj0dhbVaEzAxyS8l8DIo3/*/2204313-3.pdf",
+    "bytes": 360667,
+    "sha256": "da2b3aad4475ca4b070849c33999a039612b3eb648d62c8d3fa79ae1aa6d3809"
+  },
+  "ds010_2020_produce": {
+    "fecha_descarga": "2026-11-16T09:59:39",
+    "tipo": "documento",
+    "archivo": "ds010_2020_produce.pdf",
+    "url_pdf": "https://busquedas.elperuano.pe/api/archivo/file/6TtU5YPRKdh9WMwJB6G2N7/*/1866352-3.pdf",
+    "bytes": 892574,
+    "sha256": "f4480a0fcad83576d3863ae27abb9a6bc9cb91b7b70c3b8c8a69b674b63e54ae"
+  },
+  "ds003_2024_produce": {
+    "fecha_descarga": "2026-11-16T09:59:40",
+    "tipo": "documento",
+    "archivo": "ds003_2024_produce.pdf",
+    "url_pdf": "https://busquedas.elperuano.pe/api/archivo/file/76B68379KAs989JfK9Qr6V/*/2261894-2.PDF",
+    "bytes": 682273,
+    "sha256": "b5ce06310bf181fc9a7d9bb09d86b02ae6bc2fc37ab6014e5e96df06e9a5c749"
+  },
+  "tupa_bodegas": {
+    "fecha_descarga": "2026-11-16T09:59:40",
+    "tipo": "documento",
+    "archivo": "tupa_bodegas.pdf",
+    "url_pdf": "https://cdn.www.gob.pe/uploads/document/file/7923911/1430019-10-anexo-1-p10-formato-tupa_bodegas.pdf",
+    "bytes": 81337,
+    "sha256": "e5d8cab39833058466346f248125685ce172f1861aa5040f759eee0a419d7338"
+  },
+  "tuo_ley28976": {
+    "fecha_descarga": "2026-11-16T09:59:40",
+    "tipo": "documento",
+    "archivo": "tuo_ley28976_actualizado_2024-09-20.pdf",
+    "url_pdf": "https://diariooficial.elperuano.pe/Normas/obtenerDocumento?idNorma=30",
+    "bytes": 784753,
+    "sha256": "54c9053873c4aef2c361d032c50e40a0ca5ad835de6f613e364be9775eaaac2f"
+  },
+  "tupa_riesgo_bajo": {
+    "fecha_descarga": "2026-11-16T09:59:40",
+    "tipo": "documento",
+    "archivo": "tupa_riesgo_bajo.pdf",
+    "url_pdf": "https://cdn.www.gob.pe/uploads/document/file/7923904/1430019-4-anexo-1-p2-formato-tupa-lfriesgo-bajo_actualizado.pdf",
+    "bytes": 83688,
+    "sha256": "202e62dafe86d5a655658ee07604f01c61ce833c673f24dac00cf15540211318"
+  },
+  "sunat_nuevos_inscritos": {
+    "tipo": "documento",
+    "archivo": "sunat_nuevos_inscritos.pdf",
+    "url_pdf": "https://charlas.sunat.gob.pe/sites/default/files/2024-11/Obligaciones%20de%20nuevos%20inscritos%20en%20el%20RUC%20con%20negocio.pdf",
+    "error": "404 Client Error: Not Found for url: https://charlas.sunat.gob.pe/sites/default/files/2024-11/Obligaciones%20de%20nuevos%20inscritos%20en%20el%20RUC%20con%20negocio.pdf",
+    "fecha_intento": "2026-11-16T09:59:43"
+  },
+  "sunat_nuevo_rus": {
+    "fecha_descarga": "2026-11-16T09:59:41",
+    "tipo": "documento",
+    "archivo": "sunat_nuevo_rus.pdf",
+    "url_pdf": "https://orientacion.sunat.gob.pe/sites/default/files/inline-files/Nuevo_rus_carpeta_V2.pdf",
+    "bytes": 1006258,
+    "sha256": "5b6132da46a7089d34e5ba2e42918f34334114157857b8cc7b5e102597516779"
+  },
+  "sunat_formalizar_negocio": {
+    "fecha_descarga": "2026-11-16T09:59:41",
+    "tipo": "documento",
+    "archivo": "sunat_formalizar_negocio.pdf",
+    "url_pdf": "https://orientacion.sunat.gob.pe/sites/default/files/inline-files/cartilla_formalizacion_2020_PORTAL.pdf",
+    "bytes": 737153,
+    "sha256": "9e480d8e3c5c8addb8d68089924b522c05a5c3b41e2f024e7e1029453c44e29d"
+  },
+  "dj_bodegas": {
+    "fecha_descarga": "2026-11-16T09:59:41",
+    "tipo": "formulario",
+    "archivo": "formularios/dj_bodegas.pdf",
+    "url_pdf": "https://cdn.www.gob.pe/uploads/document/file/3441919/Declaraci%C3%B3n%20jurada%20para%20licencia%20provisional%20de%20funcionamiento%20de%20bodegas.pdf.pdf",
+    "bytes": 660621,
+    "sha256": "a8344a322d9ca24423933a8a6d968cee5017d6f7ce12698d8bb227c35bc7e834"
+  },
+  "dj_licencia_funcionamiento": {
+    "fecha_descarga": "2026-11-16T09:59:41",
+    "tipo": "formulario",
+    "archivo": "formularios/dj_licencia_funcionamiento.pdf",
+    "url_pdf": "https://cdn.www.gob.pe/uploads/document/file/6143790/5402423-formato-de-dj-para-licencia-de-funcionamiento-1.pdf",
+    "bytes": 243010,
+    "sha256": "7602b91e4433532a0805008ab01776a4c4a913522e6233ef384f5cf463b56be7"
+  }
+}
