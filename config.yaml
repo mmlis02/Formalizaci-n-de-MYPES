@@ -25,6 +25,29 @@ verificacion:
   min_articulos_para_medir_orden: 10
 
 # ---------------------------------------------------------------------------
+# Bloque 1, paso 4: reglas de limpieza. Cada regla se cuenta en el reporte de calidad.
+# ---------------------------------------------------------------------------
+limpieza:
+  # R1 Encabezado de página de El Peruano. Dos variantes:
+  #   "21 / NORMAS LEGALES / Jueves 14 de mayo de 2020 / El Peruano /"
+  #   "4 / NORMAS LEGALES / Miércoles 5 de diciembre de 2018 / El Peruano"   (fecha y diario en la misma línea)
+  encabezado_elperuano: '\A\s*(\d{1,3}\s*\n)?\s*NORMAS\s+LEGALES\s*\n[^\n]*\d{4}\s*(/\s*El Peruano\s*\n|\n\s*El Peruano\s*(/\s*)?\n)(\s*/\s*\n)?'
+  # R2 Sello de firma digital que El Peruano estampa en algunas páginas
+  sello_firma: 'Firmado por:\s*Editora Peru\s*\n\s*Fecha:\s*[\d/]+\s+[\d:]+\s*\n?'
+  # R3 Código de publicación que cierra cada norma en El Peruano (ya usado para recortar)
+  codigo_publicacion: '^\s*\d{7}-\d+\s*$'
+  # R4 Ligaduras tipográficas rotas: "Simpliﬁcado" -> "Simplificado"
+  ligaduras: {"ﬁ": "fi", "ﬂ": "fl", "ﬀ": "ff", "ﬃ": "ffi", "ﬄ": "ffl"}
+  # R5 Encabezados de página de otros formatos (se quitan solo al inicio de cada página)
+  encabezados_otros:
+    editora_peru: '\A\s*\d{1,3}\s*\n\s*Inicio\s*\n\s*NORMAS LEGALES ACTUALIZADAS\s*\n(\s*TUO de la Ley Marco de Licencia de Funcionamiento\s*\n){1,2}'
+    sunat_nuevo_rus: '\A\s*(Nuevo Régimen Único Simplificado\s*\n){1,2}(\s*\d{1,2}\s*\n){0,2}'
+    sunat_numeros_pagina: '\A\s*\d{1,2}\s*\n\s*\d{1,2}\s*\n'   # folleto a doble página: "10 / 11"
+  # R7 Notas de versión de Editora Perú: van DESPUÉS del texto ya vigente, así que no se borra nada;
+  # solo se reescriben como "[Texto vigente — Literal modificado por X, publicada el F]".
+  documentos_con_notas_editora: [tuo_ley28976]
+
+# ---------------------------------------------------------------------------
 # Bloque 1: corpus de leyes (solo fuentes oficiales: gob.pe, El Peruano, SUNAT)
 # ---------------------------------------------------------------------------
 # Solo entran al índice los documentos con incluir: true.
