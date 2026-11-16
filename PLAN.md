@@ -7,10 +7,18 @@
 
 ## 1. La idea en una frase
 
-**One-liner (borrador):** Ayudamos a los bodegueros del Perú a formalizarse: cuentan su negocio en un audio y reciben qué trámites les tocan, con la ley citada, y la declaración jurada de su licencia ya llena.
+**One-liner (borrador):** Ayudamos a bodegueros y pequeños emprendedores del Perú a formalizarse: cuentan su negocio en un audio y reciben qué trámites les tocan, con la ley citada, y la declaración jurada de su licencia ya llena.
 
-**Usuario inicial:** persona natural con una bodega de barrio (en su vivienda, ≤ 50 m²) que no tiene RUC o no tiene licencia.
-Empezamos solo con bodegas porque tienen un camino legal especial y más simple (Ley 30877, Ley General de Bodegueros): licencia **provisional gratuita**, con un formulario de **una sola página**.
+**Usuario:** persona natural con un negocio pequeño (bodega, tienda, puesto, taller, emprendimiento en casa) que no tiene RUC o no tiene licencia.
+La app distingue **tres caminos**:
+
+| Camino | Quién | Licencia | Formulario que llena la app |
+|---|---|---|---|
+| **A. Bodega** | Bodega en su vivienda, ≤ 50 m², 1.er o 2.º piso, con acceso directo a la calle | Licencia **provisional gratuita** (Ley 30877, Ley General de Bodegueros) | DJ para Licencia Provisional de Funcionamiento para Bodegas (1 página) |
+| **B. Negocio con local** | Cualquier otro mini emprendimiento con local abierto al público (o bodega que no cumple las condiciones) | Licencia de funcionamiento (TUO Ley 28976); el nivel de riesgo lo califica la municipalidad | Formato de DJ para Licencia de Funcionamiento (Anexo 1 del D.S. 163-2020-PCM) |
+| **C. Sin local** | Vende por redes, delivery o a pedido, sin local abierto al público | La app **no decide**: muestra lo que dice el corpus y recomienda consultar a su municipalidad | Ninguno (solo el plan de SUNAT) |
+
+Los tres caminos comparten la parte tributaria (RUC + Nuevo RUS). La bodega es el **caso del demo** porque su camino es el más claro.
 
 **Herramientas del curso dentro del producto (2):**
 
@@ -36,10 +44,10 @@ Empezamos solo con bodegas porque tienen un camino legal especial y más simple 
  usuario revisa y confirma los campos en pantalla  (DNI y nombre los escribe él: no pasan por la IA)
    │
    ▼  src/reglas.py ......... reglas fijas en Python (umbrales en config.yaml, cada una con su fuente)
-   │                          → ¿le toca licencia provisional de bodega? ¿Nuevo RUS categoría 1 o 2?
-   │                          → checklist: RUC → régimen → licencia → condiciones de seguridad
+   │                          → ¿camino A (bodega), B (negocio con local) o C (sin local)?
+   │                          → ¿Nuevo RUS categoría 1 o 2? → checklist con fuentes
    ▼
- ├─► src/formulario.py ...... PDF: Declaración Jurada para Licencia Provisional de Funcionamiento para Bodegas
+ ├─► src/formulario.py ...... PDF: DJ de bodegas (camino A) o DJ de licencia de funcionamiento (camino B)
  └─► src/motor_rag.py ....... chat de dudas: responder(pregunta) con citas (ley, pág.) y abstención
 ```
 
@@ -70,8 +78,8 @@ Empezamos solo con bodegas porque tienen un camino legal especial y más simple 
 | `.githooks/pre-commit` | `.githooks/` | Ninguno |
 | **`src/voz.py`** | **nuevo** | `transcribir(ruta_audio) -> dict` |
 | **`src/ficha.py`** | **nuevo** | `extraer_ficha(transcripcion) -> dict` con verificación |
-| **`src/reglas.py`** | **nuevo** | `diagnosticar(ficha) -> dict` (régimen, tipo de licencia, checklist con fuentes) |
-| **`src/formulario.py`** | **nuevo** | `generar_pdf(ficha, datos_personales) -> bytes` |
+| **`src/reglas.py`** | **nuevo** | `diagnosticar(ficha) -> dict` (camino A/B/C, régimen, checklist con fuentes) |
+| **`src/formulario.py`** | **nuevo** | `generar_pdf(camino, ficha, datos_personales) -> bytes` (una función, dos plantillas) |
 | **`src/motor.py`** | **nuevo** | `procesar_audio(ruta)` y `procesar_texto(texto)`: unen voz → ficha → reglas; es lo único que llama la app |
 | **`app.py`** | **nuevo** | Streamlit con 3 pasos: Cuéntame → Revisa tus datos → Tu plan y tu formulario (+ chat) |
 
@@ -90,8 +98,10 @@ Antes de construir nada: **verificación de fuentes** (páginas, caracteres por 
 | `tupa_riesgo_bajo` | Formato TUPA estandarizado: licencia de funcionamiento riesgo bajo (para negocios que no califican como bodega) | https://cdn.www.gob.pe/uploads/document/file/7923904/1430019-4-anexo-1-p2-formato-tupa-lfriesgo-bajo_actualizado.pdf |
 | `sunat_nuevos_inscritos` | SUNAT: obligaciones de nuevos inscritos en el RUC con negocio (NRUS, RER, RMT) | https://charlas.sunat.gob.pe/sites/default/files/2024-11/Obligaciones%20de%20nuevos%20inscritos%20en%20el%20RUC%20con%20negocio.pdf |
 
-Formulario que se llena (no va al índice, es la plantilla del PDF):
-- Declaración Jurada para Licencia Provisional de Funcionamiento para Bodegas: https://cdn.www.gob.pe/uploads/document/file/3441919/Declaraci%C3%B3n%20jurada%20para%20licencia%20provisional%20de%20funcionamiento%20de%20bodegas.pdf.pdf
+Formularios que se llenan (no van al índice, son las plantillas del PDF):
+- **Camino A:** Declaración Jurada para Licencia Provisional de Funcionamiento para Bodegas (secciones I Solicitante, II Representante, III Establecimiento bodeguero, IV Declaración jurada): https://cdn.www.gob.pe/uploads/document/file/3441919/Declaraci%C3%B3n%20jurada%20para%20licencia%20provisional%20de%20funcionamiento%20de%20bodegas.pdf.pdf
+- **Camino B:** Formato de Declaración Jurada para Licencia de Funcionamiento, Anexo 1 del D.S. 163-2020-PCM (secciones I Modalidad, II Solicitante, III Representante, IV Establecimiento, V Declaración jurada, VI Nivel de riesgo). Ejemplo publicado en gob.pe: https://cdn.www.gob.pe/uploads/document/file/6143790/5402423-formato-de-dj-para-licencia-de-funcionamiento-1.pdf
+  - Los campos que llena la municipalidad (código CIIU, giro, zonificación, **nivel de riesgo**) se dejan en blanco: la app no los decide.
 
 Anotar la fecha de descarga de cada archivo en `data/manifiesto_descargas.json` (como en HW_03).
 
@@ -101,10 +111,11 @@ Anotar la fecha de descarga de cada archivo en `data/manifiesto_descargas.json` 
 
 Las reglas son **fijas y en Python**, no las decide la IA. Cada regla guarda su fuente para mostrarla en pantalla. **Verificar cada número contra el corpus antes de usarlo.**
 
-**¿Licencia provisional de bodega?** Sí, si se cumple todo:
-- giro bodega; área total **≤ 50 m²**; en uno o más ambientes de su **vivienda**, en **1.er o 2.º piso**, con **frente o acceso directo desde la vía pública** (Reglamento Ley 30877).
-- Es gratuita, se otorga una sola vez y dura 12 meses; luego la municipalidad emite la definitiva (formato TUPA bodegas).
-- Si no cumple → licencia de funcionamiento riesgo bajo/medio (TUO Ley 28976) y se avisa que el formulario es otro.
+**¿Qué camino?** (en este orden)
+1. **No tiene local abierto al público** → **camino C**. La app no afirma si necesita licencia: el chat responde con el corpus y se recomienda consultar a la municipalidad.
+2. **Bodega** con área total **≤ 50 m²**, en uno o más ambientes de su **vivienda**, en **1.er o 2.º piso**, con **frente o acceso directo desde la vía pública** (Reglamento Ley 30877) → **camino A**: licencia provisional gratuita, se otorga una sola vez y dura 12 meses; luego la municipalidad emite la definitiva (formato TUPA bodegas).
+3. **Cualquier otro negocio con local** (o una bodega que no cumple el punto 2) → **camino B**: licencia de funcionamiento (TUO Ley 28976). El nivel de riesgo y la inspección (ITSE) los decide la municipalidad; la app solo explica qué significa cada nivel.
+4. **Aviso:** si el giro suele requerir autorización sectorial (salud, alimentos preparados, educación, etc.), la app lo advierte y recomienda consultar; no lo resuelve en el MVP.
 
 **¿Qué régimen tributario?** (persona natural)
 - Ingresos **o** compras mensuales ≤ S/ 5,000 → **Nuevo RUS categoría 1**, cuota S/ 20.
@@ -120,12 +131,13 @@ Las reglas son **fijas y en Python**, no las decide la IA. Cada regla guarda su 
 
 | Campo | Tipo | ¿Sale del audio? | Uso |
 |---|---|---|---|
-| `giro` | texto | sí | ¿es bodega? |
-| `nombre_bodega` | texto | sí | formulario |
+| `giro` / `actividad` | texto | sí | ¿es bodega?, ¿autorización sectorial?; va al formulario |
+| `tiene_local_al_publico` | sí/no | sí | camino C |
+| `nombre_comercial` | texto | sí | formulario |
 | `distrito`, `provincia`, `departamento` | texto | sí | formulario |
 | `direccion` | texto | sí | formulario |
 | `area_m2` | número | sí | regla ≤ 50 m² |
-| `en_vivienda`, `piso`, `acceso_directo_via_publica` | sí/no, número | sí | regla bodega |
+| `en_vivienda`, `piso`, `acceso_directo_via_publica` | sí/no, número | sí | regla bodega (camino A) |
 | `ventas_mensuales`, `compras_mensuales` | número (S/) | sí | régimen NRUS |
 | `tiene_ruc` | sí/no | sí | checklist |
 | `nombre_completo`, `dni`, `telefono`, `correo` | texto | **no**: los escribe el usuario | solo van al PDF; nunca se envían a la IA |
@@ -139,7 +151,7 @@ Las reglas son **fijas y en Python**, no las decide la IA. Cada regla guarda su 
 ## 7. Bloques de trabajo (cada uno = 1 o más commits)
 
 ### Lunes 16 (hoy)
-- [ ] **Bloque 0 — Repo** (mañana): crear repo público, `LICENSE` MIT, `.gitignore`, `.env.example`, este `PLAN.md`, `CLAUDE.md`, estructura de carpetas, pre-commit activado. **Commit + push.**
+- [x] **Bloque 0 — Repo** (mañana): crear repo público, `LICENSE` MIT, `.gitignore`, `.env.example`, este `PLAN.md`, `CLAUDE.md`, estructura de carpetas, pre-commit activado. **Commit + push.**
 - [ ] **Comentar en el issue #205** con la plantilla (ver final de este archivo). Se puede editar después.
 - [ ] **Entrevistas** (durante el día): 3 conversaciones con la guía de `docs/research/`.
 - [ ] **Bloque 1 — Corpus e índice:** config de documentos → descargar → verificar fuentes (tabla) → extraer y limpiar → fragmentar → índice con embeddings de OpenAI. **Commit.**
@@ -149,7 +161,7 @@ Las reglas son **fijas y en Python**, no las decide la IA. Cada regla guarda su 
 
 ### Martes 17
 - [ ] **Bloque 3 — Voz y ficha:** `voz.py` + `ficha.py` + verificación + números en palabras, con pruebas. Grabar `ejemplos/audio_ejemplo.m4a` con **datos inventados** (plan B del demo). **Commit.**
-- [ ] **Bloque 4 — Reglas y PDF:** `reglas.py` + `formulario.py` (reportlab, misma estructura de secciones que el formato oficial). **Commit.**
+- [ ] **Bloque 4 — Reglas y PDF:** `reglas.py` (caminos A/B/C + NRUS) + `formulario.py` (reportlab, misma estructura de secciones que cada formato oficial). Primero la plantilla de bodegas (1 página), después la del Anexo 1, que comparte casi todos los campos. Pruebas con un caso de cada camino. **Commit.**
 - [ ] **Bloque 5 — App completa y despliegue final:** 3 pasos + chat + botón "usar audio de ejemplo" + mensajes de error claros. Que 2 personas la prueben. **Commit.**
 - [ ] **Bloque 6 — README de 9 partes** + 3 capturas + diagrama + costo por usuario desde `logs/costos_llm.csv`. **Commit.**
 - [ ] **Video de respaldo** (60–90 s) con el flujo completo; link en el README y en el issue.
@@ -175,7 +187,7 @@ Mapa del código en el orden del flujo: `app.py` → `src/motor.py` → `src/voz
 
 Cambios para practicar el martes, con la app corriendo en local (`streamlit run app.py`):
 1. Cambiar el umbral de abstención del chat (`config.yaml` → `motor.umbral_similitud`) y probar una pregunta fuera del corpus.
-2. Cambiar el límite del NRUS o del área de bodega (`config.yaml` → `reglas`) y ver cómo cambia el diagnóstico.
+2. Cambiar el límite del NRUS o del área de bodega (`config.yaml` → `reglas`) y ver cómo un mismo negocio pasa del camino A al B.
 3. Agregar un campo a la ficha (esquema en `ficha.py` + etiqueta en `config.yaml`).
 4. Explicar dónde decide el motor **no** llamar a la IA y dónde queda un campo "por confirmar".
 
@@ -185,9 +197,9 @@ Cambios para practicar el martes, con la app corriendo en local (`streamlit run 
 
 ```
 Nombre: Michelle Li
-Startup y one-liner: Formaliza — Ayudamos a los bodegueros del Perú a formalizarse: cuentan su negocio en un audio y reciben qué trámites les tocan, con la ley citada, y la declaración jurada de su licencia ya llena.
+Startup y one-liner: Formaliza — Ayudamos a bodegueros y pequeños emprendedores del Perú a formalizarse: cuentan su negocio en un audio y reciben qué trámites les tocan, con la ley citada, y la declaración jurada de su licencia ya llena.
 Link del demo (URL pública, o "corre en local"): <URL de Streamlit Cloud>
 Link del repo: <URL del repo>
-Herramientas del curso que usa: Whisper, de voz a texto (sesión 13); LLM con salidas estructuradas y RAG sobre la Ley General de Bodegueros, su reglamento, la Ley Marco de Licencia de Funcionamiento y SUNAT (sesión 08)
+Herramientas del curso que usa: Whisper, de voz a texto (sesión 13); LLM con salidas estructuradas y RAG sobre la Ley Marco de Licencia de Funcionamiento, la Ley General de Bodegueros y su reglamento, y normas de SUNAT (sesión 08)
 Video de respaldo: se agrega antes del miércoles 18
 ```

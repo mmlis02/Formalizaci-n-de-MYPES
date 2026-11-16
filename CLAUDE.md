@@ -1,7 +1,7 @@
 # CLAUDE.md — contexto para Claude Code
 
 ## Qué es este proyecto
-**Formaliza**: app Streamlit que ayuda a bodegueros del Perú a formalizarse. El usuario cuenta su negocio por audio (o texto); la app transcribe (Whisper), extrae los datos en JSON (LLM con salidas estructuradas), los verifica contra la transcripción, aplica reglas fijas (¿licencia provisional de bodega?, ¿Nuevo RUS 1 o 2?), genera la Declaración Jurada para Licencia Provisional de Funcionamiento para Bodegas en PDF y responde dudas con un RAG sobre leyes oficiales, citando documento y página.
+**Formaliza**: app Streamlit que ayuda a bodegueros y pequeños emprendedores del Perú a formalizarse. El usuario cuenta su negocio por audio (o texto); la app transcribe (Whisper), extrae los datos en JSON (LLM con salidas estructuradas), los verifica contra la transcripción y aplica reglas fijas: camino A (bodega con licencia provisional), B (negocio con local, licencia de funcionamiento) o C (sin local), y Nuevo RUS 1 o 2. Genera en PDF la declaración jurada que corresponde (bodegas o Anexo 1 del D.S. 163-2020-PCM) y responde dudas con un RAG sobre leyes oficiales, citando documento y página. Los campos que decide la municipalidad (nivel de riesgo, CIIU, zonificación) nunca los llena la app.
 
 Es el proyecto final individual de Michelle Li (Data Science con Python, Universidad del Pacífico). **Michelle tiene que poder explicar y modificar en vivo cada parte del código.** Por eso:
 - Prefiere código simple y legible a código ingenioso. Funciones cortas, nombres en español, comentarios que digan *por qué*.
