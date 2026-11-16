@@ -1,0 +1,184 @@
+# Configuración de Formaliza.
+# Todas las rutas son relativas a la carpeta donde está este archivo.
+# Nada de rutas, modelos, umbrales, prompts ni mensajes debe quedar "escrito a mano" en el código.
+
+rutas:
+  raw: data/raw                      # PDFs originales (nunca se modifican, fuera de git)
+  processed: data/processed          # texto extraído, página por página
+  manifiesto_descargas: data/manifiesto_descargas.json   # fecha de descarga y huella (sha256) de cada PDF
+  logs: logs
+
+descarga:
+  # Algunos portales del Estado rechazan descargas sin un "User-Agent" de navegador.
+  user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+  timeout_segundos: 90
+
+# ---------------------------------------------------------------------------
+# Bloque 1: corpus de leyes (solo fuentes oficiales: gob.pe, El Peruano, SUNAT)
+# ---------------------------------------------------------------------------
+# Solo entran al índice los documentos con incluir: true.
+# recorte: El Peruano publica varias normas en las mismas páginas; cada norma termina con su
+# código de publicación (p. ej. "2204313-3"). Se recorta el texto después de "despues_de" y
+# hasta "hasta". Los valores se completan en la verificación de fuentes (paso 3).
+# Fuentes verificadas el 2026-11-16 (Bloque 1, paso 1).
+documentos:
+  - id: ley30877
+    titulo: "Ley N.° 30877, Ley General de Bodegueros (texto original)"
+    tipo: ley
+    emisor: "Congreso de la República"
+    fecha_publicacion: "2018-12-05"
+    version: "Texto original publicado en El Peruano el 05/12/2018"
+    fecha_version: "2018-12-05"
+    modifica: null
+    archivo: ley30877.pdf
+    recorte: {despues_de: null, hasta: null}
+    url_pdf: "https://cdn.www.gob.pe/uploads/document/file/1857260/Ley%20N%C2%B0%2030877.pdf.pdf"
+    url_ficha: "https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/1889905-30877"
+    incluir: true
+
+  - id: ley31866
+    titulo: "Ley N.° 31866, que modifica la Ley 30877, Ley General de Bodegueros (art. 6: trámite virtual)"
+    tipo: ley
+    emisor: "Congreso de la República"
+    fecha_publicacion: "2023-08-11"
+    version: "Publicada en El Peruano el 11/08/2023"
+    fecha_version: "2023-08-11"
+    modifica: "Ley N.° 30877 (segundo párrafo del art. 6)"
+    archivo: ley31866.pdf
+    recorte: {despues_de: null, hasta: "2204313-3"}
+    # El enlace del plan (/download/url/...) devuelve una página HTML; este es el PDF de la misma ficha.
+    url_pdf: "https://busquedas.elperuano.pe/api/archivo/file/6jj0dhbVaEzAxyS8l8DIo3/*/2204313-3.pdf"
+    url_ficha: "https://busquedas.elperuano.pe/dispositivo/NL/2204313-3"
+    incluir: true
+
+  - id: ds010_2020_produce
+    titulo: "Decreto Supremo N.° 010-2020-PRODUCE, que aprueba el Reglamento de la Ley N.° 30877"
+    tipo: decreto_supremo
+    emisor: "Ministerio de la Producción (Poder Ejecutivo)"
+    fecha_publicacion: "2020-05-14"
+    version: "Texto original publicado en El Peruano el 14/05/2020"
+    fecha_version: "2020-05-14"
+    modifica: null
+    archivo: ds010_2020_produce.pdf
+    recorte: {despues_de: null, hasta: "1866352-3"}
+    # Se usa El Peruano y no gob.pe: el PDF de gob.pe es un escaneo sin texto (0 caracteres en sus 10 págs.).
+    url_pdf: "https://busquedas.elperuano.pe/api/archivo/file/6TtU5YPRKdh9WMwJB6G2N7/*/1866352-3.pdf"
+    url_ficha: "https://busquedas.elperuano.pe/dispositivo/NL/1866352-3"
+    incluir: true
+
+  - id: ds003_2024_produce
+    titulo: "Decreto Supremo N.° 003-2024-PRODUCE, que modifica el Reglamento de la Ley N.° 30877"
+    tipo: decreto_supremo
+    emisor: "Ministerio de la Producción (Poder Ejecutivo)"
+    fecha_publicacion: "2024-02-15"
+    version: "Publicado en El Peruano el 15/02/2024"
+    fecha_version: "2024-02-15"
+    modifica: "Reglamento de la Ley N.° 30877 (D.S. N.° 010-2020-PRODUCE), arts. 19 y 21"
+    archivo: ds003_2024_produce.pdf
+    recorte: {despues_de: null, hasta: "2261894-2"}
+    # El enlace del plan (congreso.gob.pe) da error 404; este es el PDF oficial de El Peruano.
+    url_pdf: "https://busquedas.elperuano.pe/api/archivo/file/76B68379KAs989JfK9Qr6V/*/2261894-2.PDF"
+    url_ficha: "https://busquedas.elperuano.pe/dispositivo/NL/2261894-2"
+    incluir: true
+
+  - id: tupa_bodegas
+    titulo: "Formato TUPA estandarizado: Licencia provisional de funcionamiento para bodegas"
+    tipo: formato_tupa
+    emisor: "Presidencia del Consejo de Ministros (Anexo 1 del D.S. N.° 200-2020-PCM, actualizado)"
+    fecha_publicacion: "2020-12-19"
+    version: "Formato actualizado publicado en gob.pe (marzo de 2025)"
+    fecha_version: "2025-03-26"
+    modifica: null
+    archivo: tupa_bodegas.pdf
+    recorte: {despues_de: null, hasta: null}
+    url_pdf: "https://cdn.www.gob.pe/uploads/document/file/7923911/1430019-10-anexo-1-p10-formato-tupa_bodegas.pdf"
+    url_ficha: "https://www.gob.pe/institucion/pcm/normas-legales/1430019-200-2020-pcm"
+    incluir: true
+
+  - id: tuo_ley28976
+    titulo: "TUO de la Ley N.° 28976, Ley Marco de Licencia de Funcionamiento (D.S. N.° 163-2020-PCM), versión actualizada"
+    tipo: ley_texto_actualizado
+    emisor: "Presidencia del Consejo de Ministros (texto actualizado por Editora Perú)"
+    fecha_publicacion: "2020-10-03"
+    version: "Normas Legales Actualizadas de Editora Perú, al 20/09/2024"
+    fecha_version: "2024-09-20"
+    modifica: null
+    archivo: tuo_ley28976_actualizado_2024-09-20.pdf
+    recorte: {despues_de: null, hasta: null}
+    url_pdf: "https://diariooficial.elperuano.pe/Normas/obtenerDocumento?idNorma=30"
+    url_ficha: "https://diariooficial.elperuano.pe/Normas"
+    incluir: true
+
+  - id: tupa_riesgo_bajo
+    titulo: "Formato TUPA estandarizado: Licencia de funcionamiento para edificaciones con nivel de riesgo bajo (ITSE posterior)"
+    tipo: formato_tupa
+    emisor: "Presidencia del Consejo de Ministros (Anexo 1 del D.S. N.° 200-2020-PCM, actualizado)"
+    fecha_publicacion: "2020-12-19"
+    version: "Formato actualizado publicado en gob.pe (marzo de 2025)"
+    fecha_version: "2025-03-20"
+    modifica: null
+    archivo: tupa_riesgo_bajo.pdf
+    recorte: {despues_de: null, hasta: null}
+    url_pdf: "https://cdn.www.gob.pe/uploads/document/file/7923904/1430019-4-anexo-1-p2-formato-tupa-lfriesgo-bajo_actualizado.pdf"
+    url_ficha: "https://www.gob.pe/institucion/pcm/normas-legales/1430019-200-2020-pcm"
+    incluir: true
+
+  # Documento del plan que ya no está disponible: la URL da error 404 (verificado el 2026-11-16).
+  # Se deja como evidencia; lo reemplazan los dos documentos de SUNAT que siguen.
+  - id: sunat_nuevos_inscritos
+    titulo: "SUNAT: Obligaciones de nuevos inscritos en el RUC con negocio (charla)"
+    tipo: material_orientacion
+    emisor: "SUNAT"
+    fecha_publicacion: "2024-11"
+    version: "No disponible (404)"
+    fecha_version: null
+    modifica: null
+    archivo: sunat_nuevos_inscritos.pdf
+    recorte: {despues_de: null, hasta: null}
+    url_pdf: "https://charlas.sunat.gob.pe/sites/default/files/2024-11/Obligaciones%20de%20nuevos%20inscritos%20en%20el%20RUC%20con%20negocio.pdf"
+    url_ficha: "https://charlas.sunat.gob.pe/tipo-de-publico/nuevos-contribuyentes-inscritos"
+    incluir: false
+
+  # Reemplazo propuesto (pendiente de aprobación de Michelle).
+  - id: sunat_nuevo_rus
+    titulo: "SUNAT: Nuevo Régimen Único Simplificado (Nuevo RUS), carpeta de orientación"
+    tipo: material_orientacion
+    emisor: "SUNAT (orientación al contribuyente)"
+    fecha_publicacion: "2020-10-13"
+    version: "Carpeta V2 (fecha tomada de los metadatos del PDF)"
+    fecha_version: "2020-10-13"
+    modifica: null
+    archivo: sunat_nuevo_rus.pdf
+    recorte: {despues_de: null, hasta: null}
+    url_pdf: "https://orientacion.sunat.gob.pe/sites/default/files/inline-files/Nuevo_rus_carpeta_V2.pdf"
+    url_ficha: "https://orientacion.sunat.gob.pe/3100-04-determinacion-y-pago-categorias-del-nrus"
+    incluir: true
+
+  # Reemplazo propuesto (pendiente de aprobación de Michelle).
+  - id: sunat_formalizar_negocio
+    titulo: "SUNAT: ¿Cómo formalizar tu negocio? Aspectos tributarios (cartilla 2020)"
+    tipo: material_orientacion
+    emisor: "SUNAT (orientación al contribuyente)"
+    fecha_publicacion: "2020-10-12"
+    version: "Cartilla de formalización 2020 (fecha tomada de los metadatos del PDF)"
+    fecha_version: "2020-10-12"
+    modifica: null
+    archivo: sunat_formalizar_negocio.pdf
+    recorte: {despues_de: null, hasta: null}
+    url_pdf: "https://orientacion.sunat.gob.pe/sites/default/files/inline-files/cartilla_formalizacion_2020_PORTAL.pdf"
+    url_ficha: "https://emprender.sunat.gob.pe/ruc/mi-ruc/inscripcion-ruc"
+    incluir: true
+
+# Formularios oficiales que la app llena (Bloque 4). NO van al índice: son las plantillas del PDF.
+# Se descargan junto con el corpus para tener la versión exacta que se copió.
+formularios:
+  - id: dj_bodegas
+    camino: A
+    titulo: "Declaración Jurada para Licencia Provisional de Funcionamiento para Bodegas"
+    archivo: formularios/dj_bodegas.pdf
+    url_pdf: "https://cdn.www.gob.pe/uploads/document/file/3441919/Declaraci%C3%B3n%20jurada%20para%20licencia%20provisional%20de%20funcionamiento%20de%20bodegas.pdf.pdf"
+  - id: dj_licencia_funcionamiento
+    camino: B
+    titulo: "Formato de Declaración Jurada para Licencia de Funcionamiento (Anexo 1 del D.S. N.° 163-2020-PCM)"
+    archivo: formularios/dj_licencia_funcionamiento.pdf
+    url_pdf: "https://cdn.www.gob.pe/uploads/document/file/6143790/5402423-formato-de-dj-para-licencia-de-funcionamiento-1.pdf"
