@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Datos crudos (no se versionan; se conserva solo la carpeta)
+data/raw/*
+!data/raw/.gitkeep

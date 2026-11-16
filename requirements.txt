@@ -1,0 +1,9 @@
+# Requisitos iniciales (sin torch). Versiones tomadas de HW_03_202602.
+# --- Utilidades generales ---
+PyYAML==6.0.3
+python-dotenv==1.2.3
+requests==2.34.2
+pandas==3.0.6
+# --- Modelo por API (OpenAI) ---
+openai==3.19.2
+tiktoken==0.14.0
