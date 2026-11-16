@@ -13,6 +13,17 @@ descarga:
   user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
   timeout_segundos: 90
 
+verificacion:
+  # Una página con menos caracteres que esto se considera "sin texto extraíble".
+  min_caracteres_pagina: 200
+  # Si más de esta proporción de páginas no tiene texto, el PDF se descarta (probable escaneo).
+  # Menos que eso suele ser una portada o contraportada: se revisa a mano en el reporte.
+  max_proporcion_paginas_sin_texto: 0.5
+  # El orden de lectura se mide con la secuencia de "Artículo N.": debe ser creciente al menos este % de veces.
+  umbral_orden_lectura: 0.9
+  # Con menos artículos que esto la medida no es confiable y se revisa a mano.
+  min_articulos_para_medir_orden: 10
+
 # ---------------------------------------------------------------------------
 # Bloque 1: corpus de leyes (solo fuentes oficiales: gob.pe, El Peruano, SUNAT)
 # ---------------------------------------------------------------------------
@@ -31,7 +42,7 @@ documentos:
     fecha_version: "2018-12-05"
     modifica: null
     archivo: ley30877.pdf
-    recorte: {despues_de: null, hasta: null}
+    recorte: {despues_de: null, hasta: "1719966-1"}   # en la pág. 2 sigue otra norma
     url_pdf: "https://cdn.www.gob.pe/uploads/document/file/1857260/Ley%20N%C2%B0%2030877.pdf.pdf"
     url_ficha: "https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/1889905-30877"
     incluir: true
@@ -45,7 +56,7 @@ documentos:
     fecha_version: "2023-08-11"
     modifica: "Ley N.° 30877 (segundo párrafo del art. 6)"
     archivo: ley31866.pdf
-    recorte: {despues_de: null, hasta: "2204313-3"}
+    recorte: {despues_de: "2204313-2", hasta: "2204313-3"}   # comparte la página con la norma anterior
     # El enlace del plan (/download/url/...) devuelve una página HTML; este es el PDF de la misma ficha.
     url_pdf: "https://busquedas.elperuano.pe/api/archivo/file/6jj0dhbVaEzAxyS8l8DIo3/*/2204313-3.pdf"
     url_ficha: "https://busquedas.elperuano.pe/dispositivo/NL/2204313-3"
@@ -60,7 +71,7 @@ documentos:
     fecha_version: "2020-05-14"
     modifica: null
     archivo: ds010_2020_produce.pdf
-    recorte: {despues_de: null, hasta: "1866352-3"}
+    recorte: {despues_de: "1866334-1", hasta: "1866352-3"}   # págs. 1 y 6 compartidas con otras normas
     # Se usa El Peruano y no gob.pe: el PDF de gob.pe es un escaneo sin texto (0 caracteres en sus 10 págs.).
     url_pdf: "https://busquedas.elperuano.pe/api/archivo/file/6TtU5YPRKdh9WMwJB6G2N7/*/1866352-3.pdf"
     url_ficha: "https://busquedas.elperuano.pe/dispositivo/NL/1866352-3"
@@ -75,7 +86,7 @@ documentos:
     fecha_version: "2024-02-15"
     modifica: "Reglamento de la Ley N.° 30877 (D.S. N.° 010-2020-PRODUCE), arts. 19 y 21"
     archivo: ds003_2024_produce.pdf
-    recorte: {despues_de: null, hasta: "2261894-2"}
+    recorte: {despues_de: "2261679-1", hasta: "2261894-2"}   # págs. 1 y 2 compartidas con otras normas
     # El enlace del plan (congreso.gob.pe) da error 404; este es el PDF oficial de El Peruano.
     url_pdf: "https://busquedas.elperuano.pe/api/archivo/file/76B68379KAs989JfK9Qr6V/*/2261894-2.PDF"
     url_ficha: "https://busquedas.elperuano.pe/dispositivo/NL/2261894-2"
