@@ -139,7 +139,9 @@ documentos:
     url_ficha: "https://charlas.sunat.gob.pe/tipo-de-publico/nuevos-contribuyentes-inscritos"
     incluir: false
 
-  # Reemplazo propuesto (pendiente de aprobación de Michelle).
+  # Reemplazos de la charla (aprobados por Michelle el 2026-11-16). Son material de orientación
+  # de 2020, no normas: cuando el motor cite un documento con "nota_fecha", agrega esa nota a la
+  # respuesta (igual que las notas de versión de HW_03). Ver mensajes.nota_fecha_sunat.
   - id: sunat_nuevo_rus
     titulo: "SUNAT: Nuevo Régimen Único Simplificado (Nuevo RUS), carpeta de orientación"
     tipo: material_orientacion
@@ -152,9 +154,9 @@ documentos:
     recorte: {despues_de: null, hasta: null}
     url_pdf: "https://orientacion.sunat.gob.pe/sites/default/files/inline-files/Nuevo_rus_carpeta_V2.pdf"
     url_ficha: "https://orientacion.sunat.gob.pe/3100-04-determinacion-y-pago-categorias-del-nrus"
+    nota_fecha: "octubre de 2020"
     incluir: true
 
-  # Reemplazo propuesto (pendiente de aprobación de Michelle).
   - id: sunat_formalizar_negocio
     titulo: "SUNAT: ¿Cómo formalizar tu negocio? Aspectos tributarios (cartilla 2020)"
     tipo: material_orientacion
@@ -167,6 +169,7 @@ documentos:
     recorte: {despues_de: null, hasta: null}
     url_pdf: "https://orientacion.sunat.gob.pe/sites/default/files/inline-files/cartilla_formalizacion_2020_PORTAL.pdf"
     url_ficha: "https://emprender.sunat.gob.pe/ruc/mi-ruc/inscripcion-ruc"
+    nota_fecha: "octubre de 2020"
     incluir: true
 
 # Formularios oficiales que la app llena (Bloque 4). NO van al índice: son las plantillas del PDF.
@@ -179,6 +182,14 @@ formularios:
     url_pdf: "https://cdn.www.gob.pe/uploads/document/file/3441919/Declaraci%C3%B3n%20jurada%20para%20licencia%20provisional%20de%20funcionamiento%20de%20bodegas.pdf.pdf"
   - id: dj_licencia_funcionamiento
     camino: B
-    titulo: "Formato de Declaración Jurada para Licencia de Funcionamiento (Anexo 1 del D.S. N.° 163-2020-PCM)"
+    # No es un PDF de la PCM: es la copia del formato nacional que publicó una municipalidad en gob.pe.
+    titulo: "Formato de Declaración Jurada para Licencia de Funcionamiento: copia publicada por la Municipalidad Distrital de Veintiséis de Octubre del formato nacional (Anexo 1 del D.S. N.° 163-2020-PCM)"
     archivo: formularios/dj_licencia_funcionamiento.pdf
     url_pdf: "https://cdn.www.gob.pe/uploads/document/file/6143790/5402423-formato-de-dj-para-licencia-de-funcionamiento-1.pdf"
+
+# Mensajes que el motor agrega a las respuestas (Bloque 2 completa esta sección).
+mensajes:
+  # Se agrega cuando una respuesta cita un documento que tiene "nota_fecha" (material de SUNAT).
+  nota_fecha_sunat: >-
+    Este dato viene de material de orientación de SUNAT de {fecha}. Los montos y requisitos
+    pueden haber cambiado: confírmalos en sunat.gob.pe antes de hacer el trámite.
