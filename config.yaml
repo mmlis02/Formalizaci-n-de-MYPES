@@ -206,6 +206,136 @@ documentos:
     nota_fecha: "octubre de 2020"
     incluir: true
 
+
+# ---------------------------------------------------------------------------
+# Bloque 1, paso 5: fragmentos, embeddings e índice
+# ---------------------------------------------------------------------------
+fragmentos:
+  # Tamaño y solape en CARACTERES (no tokens). Se usa la configuración que ganó en HW_03
+  # (c500_s150: mejor Recall@1 y mejor separación dentro/fuera del corpus).
+  configuraciones:
+    c500_s150: {tamano: 500, solape: 150}
+  elegida: c500_s150
+  # Texto corto que se antepone a cada fragmento al calcular su embedding (no cambia el texto citado).
+  nombres_cortos:
+    ley30877: "Ley 30877, Ley General de Bodegueros"
+    ley31866: "Ley 31866 que modifica la Ley General de Bodegueros (licencia provisional virtual)"
+    ds010_2020_produce: "Reglamento de la Ley General de Bodegueros (D.S. 010-2020-PRODUCE)"
+    ds003_2024_produce: "D.S. 003-2024-PRODUCE que modifica el Reglamento de la Ley General de Bodegueros"
+    tupa_bodegas: "Formato TUPA: licencia provisional de funcionamiento para bodegas"
+    tuo_ley28976: "TUO de la Ley Marco de Licencia de Funcionamiento (Ley 28976)"
+    tupa_riesgo_bajo: "Formato TUPA: licencia de funcionamiento para negocios de riesgo bajo"
+    sunat_nuevo_rus: "SUNAT: Nuevo RUS (orientación 2020)"
+    sunat_formalizar_negocio: "SUNAT: cómo formalizar tu negocio, RUC y regímenes tributarios (orientación 2020)"
+
+embeddings:
+  # Solo embeddings por API: así el despliegue no necesita torch ni sentence-transformers.
+  modelo_activo: openai
+  modelos:
+    openai:
+      tipo: openai
+      nombre: text-embedding-3-small
+      prefijo_consulta: ""
+      prefijo_pasaje: ""
+      max_tokens: 8191
+      lote: 100
+      alias: oai3small
+
+indice:
+  carpeta: data/index/chroma        # SÍ va a git: Streamlit Cloud no construye el índice
+  prefijo_coleccion: formaliza
+  lote_insercion: 64
+
+# Precios por 1M de tokens (USD). Fuente: https://developers.openai.com/api/docs/pricing
+# OpenAI no cobra distinto según la hora: una sola franja 00:00-24:00 (mismo esquema que HW_03).
+precios:
+  fuente: "https://developers.openai.com/api/docs/pricing"
+  fecha_verificacion: "2026-11-16"
+  zona_horaria: "UTC"
+  modelos:
+    text-embedding-3-small:
+      franjas:
+        - {desde: "00:00", hasta: "24:00", entrada: 0.02, entrada_cache: 0.02, salida: 0.0}
+    gpt-6-luna:
+      franjas:
+        - {desde: "00:00", hasta: "24:00", entrada: 0.10, entrada_cache: 0.01, salida: 0.50}
+  log_llamadas: logs/costos_llm.csv
+
+# ---------------------------------------------------------------------------
+# Bloque 2: evaluación, motor RAG, modelo de lenguaje y prompts
+# ---------------------------------------------------------------------------
+evaluacion:
+  preguntas: eval/preguntas.csv
+  k_valores: [1, 3, 5]
+  resultados: eval/resultados
+  # text-embedding-3-small da similitudes más bajas que los modelos locales (en HW_03: 0.15-0.74)
+  barrido: {desde: 0.20, hasta: 0.70, paso: 0.005}
+
+motor:
+  # Defensa 1 (sin IA): si la similitud del mejor fragmento es menor que esto, se abstiene SIN
+  # llamar al LLM. Un umbral por modelo de embeddings (cada uno tiene su escala).
+  # Regla (la misma de HW_03 para OpenAI): similitud de la pregunta legítima más baja - 0.005,
+  # para no detener ninguna pregunta del corpus. Calibrado con eval/barrido_umbral.py.
+  umbral_similitud:
+    openai: 0.400        # valor provisional; lo fija el barrido del Bloque 2
+  k_contexto: 5          # fragmentos que se entregan al LLM
+  # Cómo se muestra cada cita [Fn] en la respuesta final: "(<cita corta>, pág. N)"
+  citas_cortas:
+    ley30877: "Ley 30877"
+    ley31866: "Ley 31866"
+    ds010_2020_produce: "Reglamento, D.S. 010-2020-PRODUCE"
+    ds003_2024_produce: "D.S. 003-2024-PRODUCE"
+    tupa_bodegas: "Formato TUPA bodegas"
+    tuo_ley28976: "TUO Ley 28976"
+    tupa_riesgo_bajo: "Formato TUPA riesgo bajo"
+    sunat_nuevo_rus: "SUNAT, Nuevo RUS"
+    sunat_formalizar_negocio: "SUNAT, ¿Cómo formalizar tu negocio?"
+  # Artículos cuyo texto en este documento ya fue cambiado por OTRA norma del corpus.
+  # Si una respuesta cita un fragmento de ese artículo, se agrega la nota de versión.
+  articulos_modificados:
+    - {documento: ley30877, articulo: "Artículo 6", norma: "la Ley N.° 31866", fecha: "11/08/2023"}
+    - {documento: ds010_2020_produce, articulo: "Artículo 19", norma: "el D.S. N.° 003-2024-PRODUCE", fecha: "15/02/2024"}
+    - {documento: ds010_2020_produce, articulo: "Artículo 21", norma: "el D.S. N.° 003-2024-PRODUCE", fecha: "15/02/2024"}
+
+llm:
+  proveedor: openai
+  modelo: gpt-6-luna
+  reasoning_effort: none      # sin razonamiento oculto: costo predecible y menor latencia
+  max_tokens_salida: 700
+  timeout_segundos: 60
+
+prompts:
+  sistema: |
+    Eres un asistente que explica a bodegueros y pequeños emprendedores del Perú cómo
+    formalizar su negocio (RUC, Nuevo RUS, licencia de funcionamiento y licencia provisional
+    de bodegas). Respondes SOLO con lo que dicen los FRAGMENTOS que se te entregan.
+    Reglas obligatorias:
+    1. No uses conocimiento propio ni información que no esté en los fragmentos. No adivines ni
+       completes con lo que "suele" decir la norma.
+    2. Decide "fuera_de_corpus" así:
+       - true: los fragmentos NO contienen el dato central que se pregunta (la cifra, el plazo,
+         el requisito o la regla concreta) y solo mencionan el tema de pasada. Explica en
+         "explicacion_limite" qué dice el corpus y qué falta.
+       - false: los fragmentos responden la pregunta, aunque sea en parte. Responde con lo que sí
+         dicen y, si falta algún detalle, dilo en "explicacion_limite". No te abstengas solo
+         porque falten detalles secundarios.
+       Las preguntas pueden venir en lenguaje cotidiano ("mi bodeguita", "cuánto le pago a la
+       SUNAT"): relaciónalas con los términos legales equivalentes antes de decidir.
+       "explicacion_limite" es SOLO para información que falta en los fragmentos. Si la respuesta
+       está completa, déjalo vacío (""). No pongas ahí notas de versión ni fechas.
+    3. Cada afirmación de "respuesta" debe llevar su cita con el número de fragmento entre
+       corchetes, por ejemplo [F2]. No escribas números de página: el sistema los pone.
+    4. Versiones: si un fragmento dice "[Texto vigente — ... por X, publicada el F]", usa ese texto.
+       La Ley 31866 y el D.S. 003-2024-PRODUCE solo traen los artículos que modifican: no los
+       presentes como si fueran la ley o el reglamento completos.
+    5. Escribe en español claro y sencillo, como para alguien sin formación legal, en 2 a 6 oraciones.
+  usuario: |
+    PREGUNTA:
+    {pregunta}
+
+    FRAGMENTOS:
+    {fragmentos}
+
 # Formularios oficiales que la app llena (Bloque 4). NO van al índice: son las plantillas del PDF.
 # Se descargan junto con el corpus para tener la versión exacta que se copió.
 formularios:
@@ -221,9 +351,29 @@ formularios:
     archivo: formularios/dj_licencia_funcionamiento.pdf
     url_pdf: "https://cdn.www.gob.pe/uploads/document/file/6143790/5402423-formato-de-dj-para-licencia-de-funcionamiento-1.pdf"
 
-# Mensajes que el motor agrega a las respuestas (Bloque 2 completa esta sección).
+# Mensajes del motor RAG (todo lo que ve el usuario vive aquí, no en el código).
 mensajes:
   # Se agrega cuando una respuesta cita un documento que tiene "nota_fecha" (material de SUNAT).
   nota_fecha_sunat: >-
     Este dato viene de material de orientación de SUNAT de {fecha}. Los montos y requisitos
     pueden haber cambiado: confírmalos en sunat.gob.pe antes de hacer el trámite.
+  abstencion_umbral: >-
+    No encontré en los documentos que consulto (Ley General de Bodegueros y su reglamento, Ley
+    Marco de Licencia de Funcionamiento, formatos TUPA y material de SUNAT) información
+    suficientemente relacionada con tu pregunta, así que prefiero no responder antes que improvisar.
+  abstencion_fuera_de_corpus: >-
+    Tu pregunta está relacionada con la formalización de negocios, pero la respuesta no está en
+    los documentos que consulto.
+  abstencion_sin_citas: >-
+    El modelo generó una respuesta sin citar ningún documento; por seguridad no se muestra.
+  pregunta_vacia: "Escribe una pregunta."
+  error_api: "No se pudo obtener respuesta del modelo de lenguaje. Intenta de nuevo en unos minutos."
+  nota_modificado: "Texto vigente: modificado por {norma}, publicada el {fecha}."
+  # Notas que se agregan cuando se cita un documento que solo modifica a otro
+  notas_por_documento:
+    ley31866: >-
+      La Ley N.° 31866 (11/08/2023) solo modifica el artículo 6 de la Ley N.° 30877; el resto de la
+      Ley General de Bodegueros sigue como en su texto original.
+    ds003_2024_produce: >-
+      El D.S. N.° 003-2024-PRODUCE (15/02/2024) modifica solo los artículos 19 y 21 del Reglamento
+      de la Ley N.° 30877 (D.S. N.° 010-2020-PRODUCE); los demás artículos siguen vigentes.

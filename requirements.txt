@@ -9,3 +9,6 @@ openai==3.19.2
 tiktoken==0.14.0
 # --- Bloque 1: extracción de PDF ---
 pymupdf==1.28.2
+# --- Bloque 1: índice vectorial y reportes ---
+chromadb==1.5.9
+matplotlib==3.11.2

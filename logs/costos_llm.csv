@@ -1,0 +1,14 @@
+fecha_hora_utc,modelo,tokens_entrada,tokens_entrada_cache,tokens_salida,latencia_s,costo_usd,franja,exito,error,pregunta
+2026-11-17T01:21:58+00:00,text-embedding-3-small,2602,,0,2.495,0.00005204,00:00-24:00,True,,[embeddings] lote de 20 textos
+2026-11-17T01:22:00+00:00,text-embedding-3-small,1111,,0,0.773,0.00002222,00:00-24:00,True,,[embeddings] lote de 7 textos
+2026-11-17T01:22:01+00:00,text-embedding-3-small,9551,,0,1.23,0.00019102,00:00-24:00,True,,[embeddings] lote de 64 textos
+2026-11-17T01:22:02+00:00,text-embedding-3-small,3815,,0,0.866,0.00007630,00:00-24:00,True,,[embeddings] lote de 26 textos
+2026-11-17T01:22:03+00:00,text-embedding-3-small,3546,,0,0.51,0.00007092,00:00-24:00,True,,[embeddings] lote de 22 textos
+2026-11-17T01:22:04+00:00,text-embedding-3-small,1234,,0,0.405,0.00002468,00:00-24:00,True,,[embeddings] lote de 9 textos
+2026-11-17T01:22:04+00:00,text-embedding-3-small,9133,,0,1.14,0.00018266,00:00-24:00,True,,[embeddings] lote de 64 textos
+2026-11-17T01:22:06+00:00,text-embedding-3-small,9205,,0,0.646,0.00018410,00:00-24:00,True,,[embeddings] lote de 64 textos
+2026-11-17T01:22:06+00:00,text-embedding-3-small,9064,,0,1.149,0.00018128,00:00-24:00,True,,[embeddings] lote de 64 textos
+2026-11-17T01:22:08+00:00,text-embedding-3-small,1790,,0,0.386,0.00003580,00:00-24:00,True,,[embeddings] lote de 13 textos
+2026-11-17T01:22:08+00:00,text-embedding-3-small,8164,,0,0.579,0.00016328,00:00-24:00,True,,[embeddings] lote de 61 textos
+2026-11-17T01:22:09+00:00,text-embedding-3-small,9579,,0,0.568,0.00019158,00:00-24:00,True,,[embeddings] lote de 64 textos
+2026-11-17T01:22:09+00:00,text-embedding-3-small,7366,,0,0.62,0.00014732,00:00-24:00,True,,[embeddings] lote de 49 textos
