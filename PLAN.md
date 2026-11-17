@@ -161,7 +161,7 @@ Las reglas son **fijas y en Python**, no las decide la IA. Cada regla guarda su 
 
 ### Martes 17
 - [ ] **Bloque 3 — Voz y ficha:** `voz.py` + `ficha.py` + verificación + números en palabras, con pruebas. Grabar `ejemplos/audio_ejemplo.m4a` con **datos inventados** (plan B del demo). **Commit.**
-- [ ] **Bloque 4 — Reglas y PDF:** `reglas.py` (caminos A/B/C + NRUS) + `formulario.py` (reportlab, misma estructura de secciones que cada formato oficial). Primero la plantilla de bodegas (1 página), después la del Anexo 1, que comparte casi todos los campos. Pruebas con un caso de cada camino. **Commit.**
+- [x] **Bloque 4 — Reglas y PDF:** `reglas.py` (caminos A/B/C + NRUS) + `formulario.py` (reportlab, misma estructura de secciones que cada formato oficial). Primero la plantilla de bodegas (1 página), después la del Anexo 1, que comparte casi todos los campos. Pruebas con un caso de cada camino. **Commit.**
 - [ ] **Bloque 5 — App completa y despliegue final:** 3 pasos + chat + botón "usar audio de ejemplo" + mensajes de error claros. Que 2 personas la prueben. **Commit.**
 - [ ] **Bloque 6 — README de 9 partes** + 3 capturas + diagrama + costo por usuario desde `logs/costos_llm.csv`. **Commit.**
 - [ ] **Video de respaldo** (60–90 s) con el flujo completo; link en el README y en el issue.
