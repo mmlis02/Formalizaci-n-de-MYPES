@@ -1,0 +1,21 @@
+id,tipo,estilo,sim_top1,rango_primer_acierto,top_recuperados,latencia_s
+D01,dentro,bodeguero,0.6232,1,ds003_2024_produce:p2(0.623) | ds010_2020_produce:p5(0.613) | ds010_2020_produce:p5(0.605) | ds010_2020_produce:p6(0.595) | ds010_2020_produce:p5(0.593),1.1343
+D02,dentro,bodeguero,0.6833,1,ley31866:p1(0.683) | ley30877:p1(0.671) | ds003_2024_produce:p2(0.638) | tupa_bodegas:p1(0.631) | ds010_2020_produce:p5(0.616),0.3439
+D03,dentro,bodeguero,0.6156,3,sunat_formalizar_negocio:p9(0.616) | sunat_nuevo_rus:p5(0.613) | sunat_formalizar_negocio:p4(0.612) | sunat_formalizar_negocio:p4(0.605) | sunat_nuevo_rus:p3(0.599),0.4163
+D04,dentro,bodeguero,0.6727,5,sunat_nuevo_rus:p8(0.673) | sunat_nuevo_rus:p5(0.665) | sunat_nuevo_rus:p8(0.663) | sunat_nuevo_rus:p5(0.661) | sunat_nuevo_rus:p9(0.650),0.3269
+D05,dentro,bodeguero,0.4793,1,sunat_formalizar_negocio:p4(0.479) | sunat_formalizar_negocio:p4(0.463) | sunat_nuevo_rus:p5(0.440) | sunat_formalizar_negocio:p6(0.426) | sunat_nuevo_rus:p6(0.422),0.4283
+D06,dentro,formal,0.6999,1,ds010_2020_produce:p3(0.700) | ds010_2020_produce:p2(0.692) | ds010_2020_produce:p1(0.675) | ds010_2020_produce:p2(0.663) | ley30877:p1(0.658),0.6304
+D07,dentro,formal,0.7556,1,ds010_2020_produce:p3(0.756) | ds010_2020_produce:p3(0.734) | ds010_2020_produce:p3(0.671) | ds010_2020_produce:p4(0.669) | ds010_2020_produce:p3(0.656),0.4172
+D08,dentro,formal,0.6871,2,ds010_2020_produce:p3(0.687) | ley30877:p1(0.687) | ds010_2020_produce:p2(0.574) | ds010_2020_produce:p2(0.560) | ds010_2020_produce:p3(0.537),0.3337
+D09,dentro,formal,0.826,1,ley31866:p1(0.826) | ds003_2024_produce:p2(0.786) | ley30877:p1(0.763) | ley31866:p1(0.756) | ley31866:p1(0.754),0.4675
+D10,dentro,formal,0.7526,3,ley30877:p1(0.753) | ley31866:p1(0.736) | ds003_2024_produce:p2(0.729) | ds010_2020_produce:p5(0.728) | ds010_2020_produce:p5(0.723),0.3997
+D11,dentro,formal,0.7794,1,tuo_ley28976:p6(0.779) | tuo_ley28976:p6(0.757) | tuo_ley28976:p7(0.721) | tuo_ley28976:p4(0.715) | tuo_ley28976:p7(0.713),0.4242
+D12,dentro,formal,0.7411,1,tuo_ley28976:p6(0.741) | tuo_ley28976:p6(0.714) | tuo_ley28976:p6(0.689) | tupa_riesgo_bajo:p1(0.684) | ley30877:p1(0.660),0.3608
+D13,dentro,formal,0.76,1,sunat_nuevo_rus:p3(0.760) | sunat_nuevo_rus:p3(0.733) | sunat_nuevo_rus:p3(0.633) | sunat_nuevo_rus:p3(0.631) | sunat_nuevo_rus:p3(0.630),0.2942
+D14,dentro,formal,0.6381,2,tuo_ley28976:p3(0.638) | tuo_ley28976:p6(0.618) | tupa_riesgo_bajo:p1(0.573) | tuo_ley28976:p7(0.564) | tuo_ley28976:p8(0.545),0.3027
+D15,dentro,formal,0.6887,1,ley30877:p1(0.689) | ley30877:p1(0.623) | ley30877:p1(0.584) | ley30877:p1(0.579) | ds010_2020_produce:p4(0.557),0.2811
+F01,fuera,bodeguero,0.3375,,sunat_formalizar_negocio:p4(0.338) | sunat_formalizar_negocio:p4(0.330) | sunat_formalizar_negocio:p4(0.324) | sunat_formalizar_negocio:p7(0.321) | sunat_formalizar_negocio:p7(0.318),0.3365
+F02,fuera,bodeguero,0.5003,,ley30877:p1(0.500) | ley30877:p1(0.483) | ley30877:p1(0.478) | ds010_2020_produce:p4(0.475) | ley30877:p1(0.469),0.3508
+F03,fuera,formal,0.5391,,tuo_ley28976:p7(0.539) | tuo_ley28976:p10(0.512) | tuo_ley28976:p11(0.492) | tuo_ley28976:p7(0.473) | tuo_ley28976:p10(0.471),0.3191
+F04,fuera,formal,0.4885,,sunat_formalizar_negocio:p5(0.489) | sunat_formalizar_negocio:p4(0.466) | sunat_formalizar_negocio:p3(0.466) | sunat_formalizar_negocio:p7(0.464) | sunat_formalizar_negocio:p4(0.452),0.3368
+F05,fuera,bodeguero,0.4845,,ds010_2020_produce:p3(0.484) | ds003_2024_produce:p2(0.483) | ds003_2024_produce:p2(0.481) | ds010_2020_produce:p6(0.480) | ds003_2024_produce:p2(0.475),0.3108

@@ -1,0 +1,11 @@
+{
+  "oai3small_c500_s150": {
+    "recall@1": 0.667,
+    "recall@3": 0.933,
+    "recall@5": 1.0,
+    "mrr@5": 0.791,
+    "latencia_media_s": 0.4108,
+    "sim_top1_dentro_min": 0.4793,
+    "sim_top1_fuera_max": 0.5391
+  }
+}
