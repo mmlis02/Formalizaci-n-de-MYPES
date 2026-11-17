@@ -11,6 +11,8 @@ Flujo de `extraer_ficha(transcripcion)`:
                                                           o dedujo la provincia a partir del distrito)
        - si no                                          -> "verificado"
      En los campos sí/no no hay un "valor" que buscar en el texto: basta con que la cita exista.
+     EXCEPCIÓN: los sí/no que deciden el camino (config.yaml > ficha > campos_siempre_por_confirmar)
+     quedan siempre "por_confirmar", porque la cita no siempre prueba el valor.
   3. La app resalta los campos "por_confirmar" para que el usuario los corrija. La IA nunca
      corrige ni completa datos: en una declaración JURADA el usuario firma que todo es cierto.
 
@@ -148,12 +150,15 @@ def extraer_ficha(transcripcion: str, cfg: dict | None = None, cliente=None) -> 
     transcripcion_n = normalizar(transcripcion)
     for nombre, tipo in CAMPOS.items():
         dato = ll["datos"].get(nombre) or {"valor": None, "cita": ""}
+        estado = verificar_campo(tipo, dato["valor"], dato["cita"], transcripcion_n)
+        if estado == "verificado" and nombre in fcfg["campos_siempre_por_confirmar"]:
+            estado = "por_confirmar"   # deciden el camino: siempre los confirma el usuario
         r["campos"][nombre] = {
             "etiqueta": fcfg["campos"][nombre]["etiqueta"],
             "tipo": tipo,
             "valor": dato["valor"],
             "cita": dato["cita"],
-            "estado": verificar_campo(tipo, dato["valor"], dato["cita"], transcripcion_n),
+            "estado": estado,
         }
     estados = [c["estado"] for c in r["campos"].values()]
     r["resumen"] = {e: estados.count(e) for e in fcfg["estados"]}

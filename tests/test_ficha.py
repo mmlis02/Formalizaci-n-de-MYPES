@@ -21,7 +21,10 @@ def test_extraer_ficha_marca_lo_inventado_como_por_confirmar(cfg, respuesta_llm)
     assert estados["ventas_mensuales"] == "verificado"
     assert estados["piso"] == "verificado"
     assert estados["tiene_local_al_publico"] == "no_mencionado"
-    assert r["resumen"] == {"verificado": 10, "por_confirmar": 2, "no_mencionado": 2}
+    # en_vivienda y acceso_directo tienen cita válida, pero deciden el camino: por confirmar
+    assert estados["en_vivienda"] == estados["acceso_directo_via_publica"] == "por_confirmar"
+    assert r["campos"]["en_vivienda"]["cita"] == "en el primer piso de mi casa"   # la cita se conserva
+    assert r["resumen"] == {"verificado": 8, "por_confirmar": 4, "no_mencionado": 2}
     assert r["campos"]["area_m2"]["etiqueta"] == cfg["ficha"]["campos"]["area_m2"]["etiqueta"]
 
 

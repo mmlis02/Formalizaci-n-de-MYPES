@@ -378,6 +378,9 @@ ficha:
     ventas_mensuales: {etiqueta: "Ventas al mes (S/)", descripcion: "Cuánto vende al mes, en soles."}
     compras_mensuales: {etiqueta: "Compras al mes (S/)", descripcion: "Cuánto compra al mes (mercadería, insumos), en soles."}
     tiene_ruc: {etiqueta: "¿Tiene RUC?", descripcion: "Si ya tiene RUC (true) o no (false)."}
+  # Campos sí/no que deciden el camino (A/B/C): aunque su cita exista, la cita no siempre PRUEBA el
+  # valor ("tengo una bodega" -> ¿local abierto al público?). Siempre los confirma el usuario con un clic.
+  campos_siempre_por_confirmar: [tiene_local_al_publico, en_vivienda, acceso_directo_via_publica]
   estados:
     verificado: "Verificado en tu audio"
     por_confirmar: "Por confirmar: revísalo"
