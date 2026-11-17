@@ -402,6 +402,89 @@ ficha:
     error_api: "No se pudieron extraer los datos del negocio. Intenta de nuevo en unos minutos."
 
 # ---------------------------------------------------------------------------
+# Bloque 4: reglas del diagnóstico (src/reglas.py). Fijas, NO las decide la IA.
+# Cada número se verificó contra el corpus (documento y página en "fuentes").
+# ---------------------------------------------------------------------------
+reglas:
+  bodega:
+    # Palabras que identifican una bodega en el campo "giro" (se comparan sin tildes ni mayúsculas)
+    palabras_giro: [bodega, abarrotes, "tienda de barrio"]
+    area_max_m2: 50
+    pisos_permitidos: [1, 2]
+    fuente: {documento: ds010_2020_produce, pagina: 5, cita: "Reglamento de la Ley 30877, art. 19 (modificado por el D.S. 003-2024-PRODUCE)"}
+  nrus:
+    # Ventas Y compras del mes deben estar dentro del límite de la categoría.
+    categorias:
+      - {categoria: 1, hasta: 5000, cuota: 20}
+      - {categoria: 2, hasta: 8000, cuota: 50}
+    fuente: {documento: sunat_nuevo_rus, pagina: 3, cita: "SUNAT, carpeta del Nuevo RUS (2020), pág. 3"}
+  # Giros que suelen requerir autorización sectorial: solo se AVISA, no se resuelve (MVP).
+  palabras_autorizacion_sectorial: [restaurante, comida, menu, "comida preparada", farmacia, botica, colegio, academia, nido, consultorio, clinica, licoreria, veterinaria]
+  fuente_autorizacion_sectorial: {documento: tuo_ley28976, pagina: 5, cita: "TUO de la Ley 28976, art. 7, literal d.2"}
+
+  # Qué ve el usuario (las condiciones de la bodega se muestran una por una)
+  condiciones_bodega:
+    es_bodega: "El giro es bodega"
+    area: "Área total no mayor de {area_max} m²"
+    vivienda: "Funciona en uno o más ambientes de su vivienda"
+    piso: "Está en el primer o segundo piso"
+    acceso: "Tiene frente o acceso directo desde la calle"
+  caminos:
+    A:
+      titulo: "Camino A: licencia provisional para bodegas"
+      explicacion: >-
+        Tu bodega cumple las condiciones de la Ley General de Bodegueros: la municipalidad te da
+        una licencia provisional gratuita, por única vez, que dura 12 meses; después emite la
+        licencia definitiva si no encuentra irregularidades.
+      formulario: dj_bodegas
+      fuente: {documento: tupa_bodegas, pagina: 1, cita: "Formato TUPA: licencia provisional para bodegas"}
+    B:
+      titulo: "Camino B: licencia de funcionamiento"
+      explicacion: >-
+        Tu negocio tiene local abierto al público y no entra en el camino de bodegas, así que
+        corresponde la licencia de funcionamiento. El nivel de riesgo y la inspección (ITSE) los
+        decide la municipalidad: la app no los llena.
+      explicacion_bodega_no_cumple: "Tu bodega no cumple esta condición del camino A: {condiciones}."
+      formulario: dj_licencia_funcionamiento
+      fuente: {documento: tuo_ley28976, pagina: 5, cita: "TUO de la Ley 28976, arts. 6 a 8"}
+    C:
+      titulo: "Camino C: negocio sin local"
+      explicacion: >-
+        Vendes sin un local abierto al público (por redes, delivery o a pedido). La app no decide
+        si necesitas licencia: pregúntalo en el chat de dudas y consulta a tu municipalidad.
+      formulario: null
+      fuente: null
+  regimen:
+    nrus: "Nuevo RUS, categoría {categoria}: cuota de S/ {cuota} al mes"
+    fuera_nrus: >-
+      Tus ventas o compras pasan de S/ {limite:,} al mes: no entras al Nuevo RUS. Puedes ver el
+      Régimen Especial de Renta (RER) o el Régimen MYPE Tributario; te conviene hablar con un contador.
+    provisional: "Provisional: falta saber tus compras del mes."
+  preguntas:
+    tiene_local_al_publico: "¿Tus clientes vienen a un local abierto al público (tienda, puesto, taller), o vendes solo por redes, delivery o a pedido?"
+    giro: "¿Qué vende o a qué se dedica tu negocio?"
+    area_m2: "¿Cuántos metros cuadrados mide tu local, más o menos?"
+    en_vivienda: "¿El negocio funciona dentro de tu casa?"
+    piso: "¿En qué piso está el local?"
+    acceso_directo_via_publica: "¿La puerta del local da directamente a la calle?"
+    ventas_mensuales: "¿Cuánto vendes al mes, más o menos (en soles)?"
+    compras_mensuales: "¿Cuánto compras al mes en mercadería o insumos (en soles)?"
+  aviso_riesgo_bodega: "La bodega también debe estar calificada como de riesgo bajo: eso lo verifica la municipalidad."
+  aviso_autorizacion_sectorial: >-
+    Tu giro ({giro}) podría necesitar una autorización sectorial (por ejemplo, de salud) antes de la
+    licencia. La app no lo resuelve: consúltalo en tu municipalidad.
+  checklist:
+    ruc: {texto: "Inscríbete en el RUC en SUNAT.", hecho: "Ya tienes RUC.", fuente: {documento: sunat_formalizar_negocio, pagina: 3, cita: "SUNAT, ¿Cómo formalizar tu negocio?, pág. 3"}}
+    regimen: {texto: "Acógete a tu régimen tributario: {regimen}.", fuente: {documento: sunat_nuevo_rus, pagina: 3, cita: "SUNAT, carpeta del Nuevo RUS, pág. 3"}}
+    licencia_A: {texto: "Presenta en tu municipalidad la declaración jurada para licencia provisional de bodegas (te la damos llena).", fuente: {documento: tupa_bodegas, pagina: 1, cita: "Formato TUPA bodegas, requisito 1"}}
+    licencia_B: {texto: "Presenta en tu municipalidad la declaración jurada para licencia de funcionamiento (te la damos llena; la municipalidad completa el CIIU, el giro y el nivel de riesgo).", fuente: {documento: tupa_riesgo_bajo, pagina: 1, cita: "Formato TUPA riesgo bajo, requisito 1"}}
+    licencia_C: {texto: "Pregunta en tu municipalidad si tu actividad necesita licencia.", fuente: null}
+    seguridad_A: {texto: "Adjunta la declaración jurada de cumplimiento de las condiciones de seguridad de la bodega.", fuente: {documento: tupa_bodegas, pagina: 1, cita: "Formato TUPA bodegas, requisito 2"}}
+    seguridad_B: {texto: "Adjunta la declaración jurada de cumplimiento de las condiciones de seguridad en la edificación.", fuente: {documento: tupa_riesgo_bajo, pagina: 1, cita: "Formato TUPA riesgo bajo, requisito 3"}}
+    itse_A: {texto: "Espera la inspección técnica de seguridad (ITSE): la municipalidad te avisa la fecha en un plazo que no supera 6 meses.", fuente: {documento: tupa_bodegas, pagina: 1, cita: "Formato TUPA bodegas"}}
+    itse_B: {texto: "Después de la licencia viene la inspección técnica de seguridad (ITSE); el certificado se renueva cada 2 años.", fuente: {documento: tupa_riesgo_bajo, pagina: 1, cita: "Formato TUPA riesgo bajo"}}
+
+# ---------------------------------------------------------------------------
 # App Streamlit (solo textos: la lógica está en src/motor_rag.py). Versión mínima de prueba;
 # los 3 pasos (Cuéntame → Revisa tus datos → Tu plan) llegan en el Bloque 5.
 # ---------------------------------------------------------------------------
