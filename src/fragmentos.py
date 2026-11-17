@@ -8,7 +8,9 @@ Decisiones:
 - ID estable y único entre documentos: "<documento>:p<página>:c<n.º>". Si el texto
   procesado y la configuración no cambian, los IDs salen idénticos en cada corrida.
 
-Copiado de HW_03_202602 (tarea1_rag_normativo/src/fragmentos.py) sin cambios.
+Copiado de HW_03_202602 (tarea1_rag_normativo/src/fragmentos.py). Cambio: los encabezados
+de artículo se buscan en todo el fragmento (ver encabezados_en); en HW_03 solo se miraba el
+inicio de cada párrafo y, con solape, se perdían los que abrían un fragmento.
 """
 import hashlib
 import json
@@ -19,11 +21,27 @@ ORDINAL = r"(?:PRIMERA|SEGUNDA|TERCERA|CUARTA|QUINTA|SEXTA|SÉPTIMA|OCTAVA|NOVEN
 # "Artículo 85." o encabezado de disposición: "PRIMERA.", "VIGÉSIMA NOVENA.", "DECIMOTERCERA." (D.S.)
 ENCABEZADO_ARTICULO = re.compile(
     rf"^[“\"]?\s*(Artículo\s+\d+|{ORDINAL}(?:\s+[A-ZÁÉÍÓÚ]+)?|DECIMO[A-ZÁÉÍÓÚ]+|VIGESIMO[A-ZÁÉÍÓÚ]+)\.")
+# Encabezado de artículo en cualquier parte del texto: "Artículo 19.- Licencia..." o "Artículo 9. Día...".
+# Exige mayúscula después para no confundirlo con una referencia ("el artículo 12 del presente...").
+ENCABEZADO_ARTICULO_EN_TEXTO = re.compile(r"(?<![\w])[“\"]?(Artículo\s+\d+)\.\s*-?\s*[A-ZÁÉÍÓÚ“\"]")
 ETIQUETA_VIGENTE = re.compile(r"\[Texto vigente — [^\]]*? por (?P<norma>.+?), publicada el (?P<fecha>[^\]]+)\]")
 
 
 def _etiqueta_unidad(encabezado: str) -> str:
     return encabezado if encabezado.startswith("Artículo") else f"Disposición {encabezado}"
+
+
+def encabezados_en(texto: str) -> list[str]:
+    """Encabezados de artículo o disposición del fragmento, en orden de aparición.
+
+    Los artículos se buscan en TODO el texto, no solo al inicio de cada párrafo: con solape,
+    un fragmento empieza con la cola del anterior pegada al encabezado ("...cola Artículo 19.-"),
+    y a veces el PDF lo pega a otro título ("CAPÍTULO IV ... Artículo 19.-").
+    """
+    hallados = [(m.start(), m.group(1)) for m in ENCABEZADO_ARTICULO_EN_TEXTO.finditer(texto)]
+    hallados += [(texto.find(par), _etiqueta_unidad(m.group(1))) for par in texto.split("\n\n")
+                 if (m := ENCABEZADO_ARTICULO.match(par)) and not m.group(1).startswith("Artículo")]
+    return list(dict.fromkeys(e for _, e in sorted(hallados)))
 
 
 def _cortar_parrafo_largo(parrafo: str, tamano: int) -> list[str]:
@@ -74,8 +92,7 @@ def fragmentar_documento(doc_cfg: dict, carpeta_processed: Path, tamano: int, so
     articulo_vigente = ""  # último "Artículo N" visto; se arrastra a la página siguiente
     for reg in registros:
         for n, texto in enumerate(fragmentar_pagina(reg["texto"], tamano, solape)):
-            encontrados = [_etiqueta_unidad(m.group(1)) for par in texto.split("\n\n")
-                           if (m := ENCABEZADO_ARTICULO.match(par))]
+            encontrados = encabezados_en(texto)
             empieza_con_articulo = bool(ENCABEZADO_ARTICULO.match(texto))
             articulo_inicio = encontrados[0] if empieza_con_articulo else articulo_vigente
             if encontrados:

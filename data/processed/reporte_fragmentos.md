@@ -23,7 +23,7 @@ Total: **527 fragmentos** (la colección tiene 527).
 | Medida | mín | mediana | p90 | máx |
 |---|---|---|---|---|
 | caracteres | 18 | 449 | 642 | 650 |
-| tokens | 21 | 147 | 191 | 301 |
+| tokens | 21 | 148 | 192 | 301 |
 
 Fragmentos sobre el límite de 8191 tokens: **0**.
 Tokens = lo que realmente ve el modelo: encabezado corto del documento + texto.
