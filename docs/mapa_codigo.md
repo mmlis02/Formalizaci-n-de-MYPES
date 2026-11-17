@@ -24,6 +24,8 @@ Piezas de apoyo:
 - [src/costos.py](../src/costos.py): `registrar_llamada` (52).
 - [config.yaml](../config.yaml): todo lo configurable.
 - Proceso offline: [build_index.py](../build_index.py).
+- Antes de presentar: `python scripts/prueba_demo.py` ([scripts/prueba_demo.py](../scripts/prueba_demo.py)) recorre el flujo real y muestra ✅/❌ por paso.
+- Evaluación de la ficha: [eval/evaluar_ficha.py](../eval/evaluar_ficha.py), con los casos de [eval/casos_ficha.yaml](../eval/casos_ficha.yaml).
 
 ## «Si me preguntan X, está en…»
 
