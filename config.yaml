@@ -498,50 +498,116 @@ formulario:
   datos_personales_faltan: "Faltan tus datos personales: {campos}."
 
 # ---------------------------------------------------------------------------
-# App Streamlit (solo textos: la lógica está en src/motor_rag.py). Versión mínima de prueba;
-# los 3 pasos (Cuéntame → Revisa tus datos → Tu plan) llegan en el Bloque 5.
+# App Streamlit (solo textos: la lógica está en src/motor.py y src/motor_rag.py)
 # ---------------------------------------------------------------------------
 app:
   titulo: "Formaliza"
   icono: "🏪"
   subtitulo: >-
-    Pregunta sobre cómo formalizar tu bodega o negocio. Respondo solo con la Ley General de
-    Bodegueros y su reglamento, la Ley Marco de Licencia de Funcionamiento, los formatos TUPA y
-    material de SUNAT, citando documento y página. Si la respuesta no está ahí, te lo digo.
+    Cuéntame tu negocio con un audio o por escrito y te digo qué trámites te tocan, con la ley
+    citada, y te doy la declaración jurada de tu licencia ya llena.
   aviso_legal: "Orientación informativa, no asesoría legal. Verifica siempre en la fuente oficial."
-  cargando: "Cargando el índice (solo la primera vez)..."
+  cargando: "Cargando el índice de leyes (solo la primera vez)..."
   sin_clave: >-
     Falta la clave de OpenAI. En local, crea el archivo .env (copia .env.example); en Streamlit
     Cloud, agrégala en Settings → Secrets como OPENAI_API_KEY = "...".
   sin_indice: >-
     No se encontró el índice vectorial (data/index/). La app no lo construye: ejecuta una vez
     `python build_index.py` y vuelve a abrir la app.
-  etiqueta_pregunta: "Escribe tu pregunta"
-  boton_preguntar: "Preguntar"
-  buscando: "Buscando en los documentos..."
-  ejemplos_titulo: "Prueba con un ejemplo"
-  ejemplos:
-    - "Tengo mi bodeguita en la sala de mi casa, ¿hasta qué tamaño puede ser para sacar la licencia provisional?"
-    - "Vendo como 4 mil soles al mes en mi tiendita, ¿cuánto tendría que pagarle a la SUNAT cada mes?"
-    - "¿Cuánto cuesta registrar la marca de mi negocio en Indecopi?"
-  titulo_respuesta: "Respuesta"
-  abstencion_titulo: "El asistente se abstuvo"
-  motivos:
-    umbral: "Ningún fragmento se parece lo suficiente a la pregunta (decidido sin llamar a la IA, costo 0)."
-    fuera_de_corpus: "La IA revisó los fragmentos y la respuesta no está en los documentos."
-    sin_citas: "La respuesta generada no citaba ningún documento y se descartó por seguridad."
-  titulo_limite: "Límite de los documentos"
-  titulo_notas: "Notas de versión y de fecha"
-  titulo_fuentes: "Fragmentos recuperados"
-  columnas_fuentes: {documento: "Documento", pagina: "Página", articulo: "Artículo", similitud: "Similitud", citada: "¿Citado?"}
-  m_abstuvo: "¿Se abstuvo?"
-  "si": "Sí"
+  pestanas: ["Formalizar mi negocio", "Preguntas sobre trámites"]
+  pasos: ["1. Cuéntame", "2. Revisa tus datos", "3. Tu plan"]
+  costo_sesion: "Costo de IA en esta sesión: US$ {costo:.4f}"
+  si: "Sí"
   "no": "No"
-  m_similitud: "Similitud máxima"
-  ayuda_umbral: "Umbral de abstención: {umbral}"
-  m_costo: "Costo de la consulta"
-  ayuda_costo: "{tokens_entrada} tokens de entrada / {tokens_salida} de salida · {latencia:.1f} s"
-  sin_llm: "US$ 0 (no se llamó a la IA)"
+
+  cuentame:
+    titulo: "Cuéntame de tu negocio"
+    instrucciones: >-
+      Cuéntame qué vendes, en qué distrito y dirección está tu local, cuántos metros cuadrados mide,
+      si está en tu casa y en qué piso, si la puerta da a la calle, cuánto vendes y compras al mes,
+      y si ya tienes RUC.
+    aviso_privacidad: >-
+      No digas tu nombre ni tu DNI. Los escribirás tú al final, solo para el formulario, y nunca
+      se envían a la IA.
+    modos: ["Grabar audio", "Subir un audio", "Escribir"]
+    etiqueta_modo: "¿Cómo me lo cuentas?"
+    etiqueta_grabar: "Graba tu audio"
+    etiqueta_subir: "Sube un audio"
+    etiqueta_texto: "Escribe sobre tu negocio"
+    ejemplo_texto: "Tengo una bodega en mi casa en Comas, en el primer piso, de 30 metros cuadrados, con puerta a la calle. Vendo como 5 mil soles al mes y compro 3 mil. No tengo RUC."
+    boton_procesar: "Analizar mi negocio"
+    boton_ejemplo: "Usar audio de ejemplo"
+    # Se usa el primero que exista: cuando se grabe ejemplos/audio_ejemplo.m4a, reemplaza al sintético.
+    audio_ejemplo: [ejemplos/audio_ejemplo.m4a, tests/datos/audio_sintetico.m4a]
+    ayuda_ejemplo: "Audio con datos inventados: {archivo}"
+    procesando: "Escuchando y ordenando tus datos..."
+    falta_entrada: "Graba, sube o escribe algo primero."
+
+  revisa:
+    titulo: "Revisa tus datos"
+    instrucciones: >-
+      Esto es lo que entendí. Corrige lo que esté mal. Los datos marcados con ⚠️ necesitan que
+      los confirmes con un clic: deciden qué trámite te toca.
+    transcripcion: "Lo que entendí de tu audio o texto"
+    iconos: {verificado: "✅", por_confirmar: "⚠️", no_mencionado: "➖"}
+    cita: "Lo dijiste así: «{cita}»"
+    sin_cita: "No lo mencionaste: complétalo si lo sabes."
+    confirmar: "Confirmo este dato"
+    faltan_confirmar: "Confirma los {n} datos marcados con ⚠️ para continuar."
+    boton_continuar: "Ver mi plan"
+    boton_volver: "Volver a contar"
+
+  plan:
+    titulo: "Tu plan para formalizarte"
+    pendientes_titulo: "Me falta un dato para decidir tu trámite"
+    boton_actualizar: "Actualizar mi plan"
+    condiciones_titulo: "Condiciones para la licencia provisional de bodega"
+    iconos_condicion: {"true": "✅", "false": "❌", "none": "❔"}
+    regimen_titulo: "Tu régimen tributario"
+    checklist_titulo: "Tus pasos"
+    fuente: "Fuente: {corta}, pág. {pagina}"
+    formulario_titulo: "Tu declaración jurada"
+    datos_personales_aviso: >-
+      Estos datos solo se escriben en el PDF, en tu navegador: no se envían a la IA ni se guardan.
+      Revisa el PDF antes de firmar.
+    etiquetas_personales: {nombre_completo: "Apellidos y nombres", dni: "DNI", telefono: "Teléfono (opcional)", correo: "Correo electrónico (opcional)"}
+    dni_invalido: "El DNI debe tener 8 dígitos."
+    boton_pdf: "Preparar mi declaración jurada"
+    boton_descargar: "Descargar PDF"
+    nombre_archivo: "declaracion_jurada_camino_{camino}.pdf"
+    boton_volver: "Volver a revisar mis datos"
+    boton_reiniciar: "Empezar de nuevo"
+
+  chat:
+    titulo: "Pregúntame sobre los trámites"
+    subtitulo: >-
+      Respondo solo con la Ley General de Bodegueros y su reglamento, la Ley Marco de Licencia de
+      Funcionamiento, los formatos TUPA y material de SUNAT, citando documento y página. Si la
+      respuesta no está ahí, te lo digo.
+    etiqueta_pregunta: "Escribe tu pregunta"
+    boton_preguntar: "Preguntar"
+    buscando: "Buscando en los documentos..."
+    ejemplos_titulo: "Prueba con un ejemplo"
+    ejemplos:
+      - "Tengo mi bodeguita en la sala de mi casa, ¿hasta qué tamaño puede ser para sacar la licencia provisional?"
+      - "Vendo como 4 mil soles al mes en mi tiendita, ¿cuánto tendría que pagarle a la SUNAT cada mes?"
+      - "¿Cuánto cuesta registrar la marca de mi negocio en Indecopi?"
+    titulo_respuesta: "Respuesta"
+    abstencion_titulo: "El asistente se abstuvo"
+    motivos:
+      umbral: "Ningún fragmento se parece lo suficiente a la pregunta (decidido sin llamar a la IA, costo 0)."
+      fuera_de_corpus: "La IA revisó los fragmentos y la respuesta no está en los documentos."
+      sin_citas: "La respuesta generada no citaba ningún documento y se descartó por seguridad."
+    titulo_limite: "Límite de los documentos"
+    titulo_notas: "Notas de versión y de fecha"
+    titulo_fuentes: "Fragmentos recuperados"
+    columnas_fuentes: {documento: "Documento", pagina: "Página", articulo: "Artículo", similitud: "Similitud", citada: "¿Citado?"}
+    m_abstuvo: "¿Se abstuvo?"
+    m_similitud: "Similitud máxima"
+    ayuda_umbral: "Umbral de abstención: {umbral}"
+    m_costo: "Costo de la consulta"
+    ayuda_costo: "{tokens_entrada} tokens de entrada / {tokens_salida} de salida · {latencia:.1f} s"
+    sin_llm: "US$ 0 (no se llamó a la IA)"
 
 # Formularios oficiales que la app llena (Bloque 4). NO van al índice: son las plantillas del PDF.
 # Se descargan junto con el corpus para tener la versión exacta que se copió.

@@ -103,3 +103,7 @@ fecha_hora_utc,modelo,tokens_entrada,tokens_entrada_cache,tokens_salida,latencia
 2026-11-17T02:15:15+00:00,gpt-6-luna,1063,1060,308,4.334,0.00016490,00:00-24:00,True,,[ficha] 300 caracteres
 2026-11-17T02:15:19+00:00,gpt-6-luna,1063,1060,434,4.783,0.00022790,00:00-24:00,True,,[ficha] 300 caracteres
 2026-11-17T02:15:24+00:00,gpt-6-luna,1063,1060,299,4.29,0.00016040,00:00-24:00,True,,[ficha] 300 caracteres
+2026-11-17T02:19:57+00:00,whisper-1,,,,2.9,0.00217700,00:00-24:00,True,,[audio] 21.8 s
+2026-11-17T02:19:59+00:00,gpt-6-luna,1063,1060,302,3.737,0.00016190,00:00-24:00,True,,[ficha] 300 caracteres
+2026-11-17T02:20:27+00:00,gpt-6-luna,1009,0,231,3.009,0.00021640,00:00-24:00,True,,[ficha] 140 caracteres
+2026-11-17T02:21:01+00:00,text-embedding-3-small,11,,0,1.089,0.00000022,00:00-24:00,True,,[embeddings] lote de 1 textos
