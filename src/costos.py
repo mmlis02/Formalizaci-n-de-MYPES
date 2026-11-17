@@ -1,7 +1,8 @@
 """Costo de cada llamada según la HORA en que se hizo, y registro de todas las llamadas.
 
-Copiado de HW_03_202602 (comun/costos.py). Único cambio: el log se guarda siempre en la
-raíz de este proyecto (BASE), así que registrar_llamada ya no recibe la carpeta.
+Copiado de HW_03_202602 (comun/costos.py). Cambios: el log se guarda siempre en la
+raíz de este proyecto (BASE), así que registrar_llamada ya no recibe la carpeta. Nuevo:
+calcular_costo_audio() para Whisper, que cobra por minuto.
 
 La tabla de precios (config.yaml > precios) tiene franjas horarias por modelo. Para
 cada llamada se busca la franja que contiene la hora de la llamada (en la zona horaria
@@ -39,6 +40,13 @@ def calcular_costo(cfg: dict, modelo: str, momento: datetime, tokens_entrada: in
     sin_cache = tokens_entrada - tokens_cache
     costo = (sin_cache * f["entrada"] + tokens_cache * f["entrada_cache"] + tokens_salida * f["salida"]) / 1_000_000
     return costo, f"{f['desde']}-{f['hasta']}"
+
+
+
+def calcular_costo_audio(cfg: dict, modelo: str, momento: datetime, segundos: float) -> tuple[float, str]:
+    """Whisper cobra por MINUTO de audio (no por tokens): segundos / 60 * precio por minuto."""
+    f = franja_vigente(cfg, modelo, momento)
+    return segundos / 60 * f["por_minuto"], f"{f['desde']}-{f['hasta']}"
 
 
 def registrar_llamada(cfg: dict, fila: dict) -> None:

@@ -17,3 +17,6 @@ streamlit==1.64.0
 # ChromaDB necesita SQLite >= 3.35; en Streamlit Cloud (Linux) se usa este si el del sistema es viejo.
 # Solo Linux: en macOS/Windows no hace falta (app.py lo usa solo si está instalado).
 pysqlite3-binary==0.5.4.post2; sys_platform == "linux"
+# --- Bloque 3: números en palabras -> dígitos ("cuatro mil quinientos" -> 4500) y pruebas ---
+text2num==3.1.0
+pytest==9.2.0

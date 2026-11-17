@@ -259,6 +259,11 @@ precios:
     gpt-6-luna:
       franjas:
         - {desde: "00:00", hasta: "24:00", entrada: 0.10, entrada_cache: 0.01, salida: 0.50}
+    # Whisper cobra por minuto de audio, no por tokens (verificado el 2026-11-16; el modelo figura
+    # como "deprecated" en la página de OpenAI, pero sigue respondiendo).
+    whisper-1:
+      franjas:
+        - {desde: "00:00", hasta: "24:00", por_minuto: 0.006}
   log_llamadas: logs/costos_llm.csv
 
 # ---------------------------------------------------------------------------
@@ -335,6 +340,66 @@ prompts:
 
     FRAGMENTOS:
     {fragmentos}
+
+# ---------------------------------------------------------------------------
+# Bloque 3: voz (Whisper) y ficha del negocio (LLM con salida estructurada + verificación)
+# ---------------------------------------------------------------------------
+voz:
+  modelo: whisper-1
+  idioma: es
+  formatos: [m4a, mp3, wav, webm, ogg, mp4, mpeg, mpga]   # los que acepta la API
+  tamano_max_mb: 25                                       # límite de la API de OpenAI
+  # Vocabulario que ayuda a Whisper con palabras del trámite (sin nombres de lugares concretos).
+  prompt: "Bodega, RUC, SUNAT, Nuevo RUS, licencia de funcionamiento, municipalidad, jirón, avenida, metros cuadrados, soles."
+  mensajes:
+    no_existe: "No se encontró el archivo de audio."
+    formato: "Formato de audio no admitido ({formato}). Usa uno de estos: {formatos}."
+    muy_grande: "El audio pesa {mb:.1f} MB; el máximo es {max_mb} MB."
+    error_api: "No se pudo transcribir el audio. Intenta de nuevo o escribe tu negocio con texto."
+    vacio: "No se entendió nada en el audio. Intenta grabarlo de nuevo, más cerca del micrófono."
+
+ficha:
+  # Lo que el LLM debe sacar de la transcripción. El TIPO de cada campo está en src/ficha.py;
+  # aquí van la etiqueta (pantalla) y la descripción (se le da al LLM).
+  # Nombre, DNI, teléfono y correo NO están aquí a propósito: los escribe el usuario en la app y
+  # nunca se envían a la IA.
+  campos:
+    giro: {etiqueta: "Giro o actividad", descripcion: "Qué vende o a qué se dedica el negocio (por ejemplo: bodega, venta de ropa, peluquería)."}
+    tiene_local_al_publico: {etiqueta: "¿Tiene local abierto al público?", descripcion: "Si atiende en un local al que entran los clientes (true) o si vende solo por redes, delivery o a pedido (false)."}
+    nombre_comercial: {etiqueta: "Nombre del negocio", descripcion: "Nombre comercial del negocio, si lo dice."}
+    direccion: {etiqueta: "Dirección", descripcion: "Calle, jirón o avenida y número del local."}
+    distrito: {etiqueta: "Distrito", descripcion: "Distrito donde está el local."}
+    provincia: {etiqueta: "Provincia", descripcion: "Provincia donde está el local."}
+    departamento: {etiqueta: "Departamento", descripcion: "Departamento (región) donde está el local."}
+    area_m2: {etiqueta: "Área (m²)", descripcion: "Área total del local en metros cuadrados."}
+    en_vivienda: {etiqueta: "¿Está en su vivienda?", descripcion: "Si el negocio funciona dentro de la casa donde vive (true) o no (false)."}
+    piso: {etiqueta: "Piso", descripcion: "En qué piso está el local (1 = primer piso, 2 = segundo piso...)."}
+    acceso_directo_via_publica: {etiqueta: "¿Tiene acceso directo a la calle?", descripcion: "Si la puerta del local da directamente a la calle o vía pública (true) o no (false)."}
+    ventas_mensuales: {etiqueta: "Ventas al mes (S/)", descripcion: "Cuánto vende al mes, en soles."}
+    compras_mensuales: {etiqueta: "Compras al mes (S/)", descripcion: "Cuánto compra al mes (mercadería, insumos), en soles."}
+    tiene_ruc: {etiqueta: "¿Tiene RUC?", descripcion: "Si ya tiene RUC (true) o no (false)."}
+  estados:
+    verificado: "Verificado en tu audio"
+    por_confirmar: "Por confirmar: revísalo"
+    no_mencionado: "No lo mencionaste"
+  prompt_sistema: |
+    Extraes los datos de un negocio pequeño del Perú a partir de la TRANSCRIPCIÓN de lo que
+    contó su dueño. Reglas obligatorias:
+    1. Usa SOLO lo que dice la transcripción. Si un dato no se menciona, su "valor" es null y su
+       "cita" es "". No deduzcas nada: no completes la provincia o el departamento a partir del
+       distrito, ni supongas que una bodega está en la vivienda si no lo dice.
+    2. "cita" es el pedazo EXACTO de la transcripción donde aparece el dato, copiado tal cual
+       (mismas palabras, sin corregir ortografía ni abreviar). Si la transcripción tiene un error
+       (por ejemplo, un nombre mal escrito), copia el valor tal como está escrito.
+    3. Los montos son en soles y por mes. Escribe los números con dígitos (4500, no "cuatro mil
+       quinientos"). Si dice un rango o "más o menos", usa el número que dijo.
+    4. Para los campos sí/no usa true o false solo si la transcripción lo dice claramente.
+  prompt_usuario: |
+    TRANSCRIPCIÓN:
+    {transcripcion}
+  mensajes:
+    texto_vacio: "Cuéntame algo de tu negocio para poder llenar la ficha."
+    error_api: "No se pudieron extraer los datos del negocio. Intenta de nuevo en unos minutos."
 
 # ---------------------------------------------------------------------------
 # App Streamlit (solo textos: la lógica está en src/motor_rag.py). Versión mínima de prueba;
