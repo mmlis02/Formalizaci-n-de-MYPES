@@ -277,7 +277,7 @@ motor:
   # Regla (la misma de HW_03 para OpenAI): similitud de la pregunta legítima más baja - 0.005,
   # para no detener ninguna pregunta del corpus. Calibrado con eval/barrido_umbral.py.
   umbral_similitud:
-    openai: 0.400        # valor provisional; lo fija el barrido del Bloque 2
+    openai: 0.474        # D05 (legítima más baja) = 0.4793 - 0.005. Barrido del 2026-11-16 (Bloque 2)
   k_contexto: 5          # fragmentos que se entregan al LLM
   # Cómo se muestra cada cita [Fn] en la respuesta final: "(<cita corta>, pág. N)"
   citas_cortas:

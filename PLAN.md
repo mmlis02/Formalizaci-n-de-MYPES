@@ -154,8 +154,8 @@ Las reglas son **fijas y en Python**, no las decide la IA. Cada regla guarda su 
 - [x] **Bloque 0 — Repo** (mañana): crear repo público, `LICENSE` MIT, `.gitignore`, `.env.example`, este `PLAN.md`, `CLAUDE.md`, estructura de carpetas, pre-commit activado. **Commit + push.**
 - [ ] **Comentar en el issue #205** con la plantilla (ver final de este archivo). Se puede editar después.
 - [ ] **Entrevistas** (durante el día): 3 conversaciones con la guía de `docs/research/`.
-- [ ] **Bloque 1 — Corpus e índice:** config de documentos → descargar → verificar fuentes (tabla) → extraer y limpiar → fragmentar → índice con embeddings de OpenAI. **Commit.**
-- [ ] **Bloque 2 — Motor RAG:** copiar el motor, adaptar prompt y mensajes, 15–20 preguntas de evaluación (5 dichas como un bodeguero, 5 fuera del corpus), barrido del umbral. **Commit.**
+- [x] **Bloque 1 — Corpus e índice:** config de documentos → descargar → verificar fuentes (tabla) → extraer y limpiar → fragmentar → índice con embeddings de OpenAI. **Commit.**
+- [x] **Bloque 2 — Motor RAG:** copiar el motor, adaptar prompt y mensajes, 15–20 preguntas de evaluación (5 dichas como un bodeguero, 5 fuera del corpus), barrido del umbral. **Commit.**
 - [ ] **Despliegue de prueba (noche):** subir una app mínima a Streamlit Community Cloud que cargue el índice y responda una pregunta. Así descubro hoy los problemas del servidor, no mañana.
   - Si ChromaDB falla en el servidor por la versión de SQLite: agregar `pysqlite3-binary` y el parche de 3 líneas al inicio de `app.py`.
 
