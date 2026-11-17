@@ -20,3 +20,5 @@ pysqlite3-binary==0.5.4.post2; sys_platform == "linux"
 # --- Bloque 3: números en palabras -> dígitos ("cuatro mil quinientos" -> 4500) y pruebas ---
 text2num==3.1.0
 pytest==9.2.0
+# --- Bloque 4: PDF de la declaración jurada ---
+reportlab==5.1.0

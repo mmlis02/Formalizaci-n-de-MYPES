@@ -484,6 +484,16 @@ reglas:
     itse_A: {texto: "Espera la inspección técnica de seguridad (ITSE): la municipalidad te avisa la fecha en un plazo que no supera 6 meses.", fuente: {documento: tupa_bodegas, pagina: 1, cita: "Formato TUPA bodegas"}}
     itse_B: {texto: "Después de la licencia viene la inspección técnica de seguridad (ITSE); el certificado se renueva cada 2 años.", fuente: {documento: tupa_riesgo_bajo, pagina: 1, cita: "Formato TUPA riesgo bajo"}}
 
+# PDF de la declaración jurada (src/formulario.py). Las etiquetas del formato oficial están en el
+# código a propósito: copian el formato y no deben cambiarse. Aquí solo van los textos propios.
+formulario:
+  nota_pie: >-
+    Preparado con Formaliza a partir del formato oficial ({url}). Revisa todos los datos antes de
+    firmar: al firmar declaras bajo juramento que son ciertos. Los espacios en blanco se llenan a mano.
+  nota_municipalidad: "* Esta información la llena la municipalidad."
+  sin_formulario: "El camino {camino} no tiene formulario de licencia: consulta a tu municipalidad."
+  datos_personales_faltan: "Faltan tus datos personales: {campos}."
+
 # ---------------------------------------------------------------------------
 # App Streamlit (solo textos: la lógica está en src/motor_rag.py). Versión mínima de prueba;
 # los 3 pasos (Cuéntame → Revisa tus datos → Tu plan) llegan en el Bloque 5.
