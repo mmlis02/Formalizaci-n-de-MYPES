@@ -1,0 +1,192 @@
+# Casos para evaluar la ficha (eval/evaluar_ficha.py). TODOS LOS DATOS SON INVENTADOS.
+#
+# Cada caso tiene el texto que "cuenta" el usuario y el valor CORRECTO de cada campo:
+#   - null  = el texto no lo dice (lo correcto es que la IA lo deje vacío; no debe deducirlo)
+#   - lista = cualquiera de esos valores se acepta (p. ej. "bodega" o "bodeguita")
+# camino_esperado es el camino que darían las reglas con los valores correctos.
+
+- id: C1
+  prueba: "Bodega que cumple, con dirección completa y números en dígitos"
+  camino_esperado: A
+  texto: >-
+    Tengo una bodega que se llama Bodega Doña Rosa, en mi casa, en el jirón Los Pinos 245,
+    distrito de San Martín de Porres, provincia de Lima, departamento de Lima. Está en el primer
+    piso, mide 28 metros cuadrados y la puerta da directo a la calle; los vecinos entran a comprar.
+    Vendo unos 4500 soles al mes y compro 3200 en mercadería. No tengo RUC.
+  esperado:
+    giro: bodega
+    tiene_local_al_publico: true
+    nombre_comercial: Bodega Doña Rosa
+    direccion: jirón Los Pinos 245
+    distrito: San Martín de Porres
+    provincia: Lima
+    departamento: Lima
+    area_m2: 28
+    en_vivienda: true
+    piso: 1
+    acceso_directo_via_publica: true
+    ventas_mensuales: 4500
+    compras_mensuales: 3200
+    tiene_ruc: false
+
+- id: C2
+  prueba: "Bodega que cumple, con números en palabras y segundo piso"
+  camino_esperado: A
+  texto: >-
+    Mi bodeguita está en el segundo piso de mi casa, en Villa El Salvador, con una escalera que
+    sale directo a la calle por donde suben los clientes. Tiene treinta y cinco metros cuadrados.
+    Al mes vendo cuatro mil ochocientos soles y compro dos mil quinientos. Todavía no saco mi RUC.
+  esperado:
+    giro: [bodega, bodeguita]
+    tiene_local_al_publico: true
+    nombre_comercial: null
+    direccion: null
+    distrito: Villa El Salvador
+    provincia: null
+    departamento: null
+    area_m2: 35
+    en_vivienda: true
+    piso: 2
+    acceso_directo_via_publica: true
+    ventas_mensuales: 4800
+    compras_mensuales: 2500
+    tiene_ruc: false
+
+- id: C3
+  prueba: "Bodega que NO cumple: 80 m² (pasa al camino B)"
+  camino_esperado: B
+  texto: >-
+    Tengo una bodega de abarrotes en el primer piso de mi casa, en el distrito de Chiclayo, con
+    puerta a la calle, y atiendo a los clientes adentro. El local es grande, mide 80 metros
+    cuadrados. Vendo como 7 mil soles mensuales y compro 6 mil. Ya tengo RUC.
+  esperado:
+    giro: [bodega, bodega de abarrotes, abarrotes]
+    tiene_local_al_publico: true
+    nombre_comercial: null
+    direccion: null
+    distrito: Chiclayo
+    provincia: null
+    departamento: null
+    area_m2: 80
+    en_vivienda: true
+    piso: 1
+    acceso_directo_via_publica: true
+    ventas_mensuales: 7000
+    compras_mensuales: 6000
+    tiene_ruc: true
+
+- id: C4
+  prueba: "Bodega que NO cumple: fuera de su vivienda, tercer piso y sin puerta a la calle"
+  camino_esperado: B
+  texto: >-
+    Alquilo un puesto de abarrotes en el tercer piso de una galería en el Cercado de Arequipa; no
+    es mi casa, yo vivo en otro lado. Los clientes llegan por la escalera de la galería, no hay
+    puerta a la calle. Son 12 metros cuadrados. Vendo 3 mil soles al mes y compro 2 mil. No tengo RUC.
+  esperado:
+    giro: [abarrotes, puesto de abarrotes, venta de abarrotes, bodega de abarrotes]
+    tiene_local_al_publico: true
+    nombre_comercial: null
+    direccion: null
+    distrito: Cercado de Arequipa
+    provincia: null
+    departamento: null
+    area_m2: 12
+    en_vivienda: false
+    piso: 3
+    acceso_directo_via_publica: false
+    ventas_mensuales: 3000
+    compras_mensuales: 2000
+    tiene_ruc: false
+
+- id: C5
+  prueba: "Peluquería con local (camino B)"
+  camino_esperado: B
+  texto: >-
+    Tengo una peluquería que se llama Estilo Carmen, en la avenida Grau 1020, en el distrito de
+    Trujillo. Es un local alquilado de 40 metros cuadrados, no vivo ahí. Está en el primer piso,
+    frente a la calle, y ahí atiendo a mis clientas. Vendo en servicios unos seis mil soles al mes
+    y compro como mil quinientos en productos. Tengo RUC desde el año pasado.
+  esperado:
+    giro: [peluquería, peluqueria]
+    tiene_local_al_publico: true
+    nombre_comercial: Estilo Carmen
+    direccion: avenida Grau 1020
+    distrito: Trujillo
+    provincia: null
+    departamento: null
+    area_m2: 40
+    en_vivienda: false
+    piso: 1
+    acceso_directo_via_publica: true
+    ventas_mensuales: 6000
+    compras_mensuales: 1500
+    tiene_ruc: true
+
+- id: C6
+  prueba: "Venta por Instagram, sin local (camino C)"
+  camino_esperado: C
+  texto: >-
+    Vendo postres por Instagram y hago delivery en Los Olivos; no tengo tienda ni local. Vendo
+    unos mil ochocientos soles al mes y compro unos setecientos en insumos. No tengo RUC.
+  esperado:
+    giro: [postres, venta de postres]
+    tiene_local_al_publico: false
+    nombre_comercial: null
+    direccion: null
+    distrito: Los Olivos
+    provincia: null
+    departamento: null
+    area_m2: null
+    en_vivienda: null
+    piso: null
+    acceso_directo_via_publica: null
+    ventas_mensuales: 1800
+    compras_mensuales: 700
+    tiene_ruc: false
+
+- id: C7
+  prueba: "Persona que se corrige a mitad de frase (área y ventas)"
+  camino_esperado: A
+  texto: >-
+    Tengo una bodega en mi casa en Ate, en el primer piso, con puerta a la calle, donde atiendo a
+    los vecinos. Mide 40, no, perdón, 45 metros cuadrados. Vendo como tres mil soles al mes, bueno,
+    en realidad son como cuatro mil. Compro dos mil quinientos. No tengo RUC.
+  esperado:
+    giro: bodega
+    tiene_local_al_publico: true
+    nombre_comercial: null
+    direccion: null
+    distrito: Ate
+    provincia: null
+    departamento: null
+    area_m2: 45
+    en_vivienda: true
+    piso: 1
+    acceso_directo_via_publica: true
+    ventas_mensuales: 4000
+    compras_mensuales: 2500
+    tiene_ruc: false
+
+- id: C8
+  prueba: "Bodega en el límite (50 m²), montos con «S/ 9,500» y fuera del Nuevo RUS"
+  camino_esperado: A
+  texto: >-
+    Somos la Bodega Los Girasoles, en la calle Las Flores 330, distrito de Cayma, provincia de
+    Arequipa, departamento de Arequipa. Funciona en el primer piso de nuestra casa, tiene 50 metros
+    cuadrados y puerta a la calle; los clientes entran a comprar. Vendemos S/ 9,500 al mes y
+    compramos S/ 7,200. Tenemos RUC.
+  esperado:
+    giro: bodega
+    tiene_local_al_publico: true
+    nombre_comercial: Bodega Los Girasoles
+    direccion: calle Las Flores 330
+    distrito: Cayma
+    provincia: Arequipa
+    departamento: Arequipa
+    area_m2: 50
+    en_vivienda: true
+    piso: 1
+    acceso_directo_via_publica: true
+    ventas_mensuales: 9500
+    compras_mensuales: 7200
+    tiene_ruc: true

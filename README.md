@@ -90,6 +90,8 @@ Otros comandos:
 | `python -m pytest` | 64 pruebas (normalización, verificación, reglas por camino, PDF, motor) | No: usan un cliente falso |
 | `python preguntar.py "¿Hasta qué tamaño puede ser mi bodega?"` | Chat de dudas en la terminal | Centavos |
 | `python scripts/probar_ficha.py tests/datos/audio_sintetico.m4a` | Audio → ficha → diagnóstico en la terminal | ~US$ 0.0025 |
+| `python scripts/prueba_demo.py` | Flujo completo real antes de presentar (ficha → camino A → PDF → pregunta con cita → abstención), con ✅/❌ por paso y costo total | ~US$ 0.0004 |
+| `python -m eval.evaluar_ficha` | Evaluación de la ficha con 8 casos inventados, 2 corridas cada uno | ~US$ 0.004 |
 | `python scripts/costo_por_usuario.py` | Costo de una sesión típica desde `logs/costos_llm.csv` | No |
 | `python -m eval.evaluar_recuperacion` y `python eval/barrido_umbral.py` | Recall@k y barrido del umbral | Centavos (embeddings) |
 | `python scripts/descargar_fuentes.py` → `verificar_fuentes.py` → `procesar_documentos.py` → `python build_index.py` | Rehacer el corpus y el índice desde cero | Centavos (embeddings) |
@@ -174,6 +176,29 @@ Antes de indexar se verificó cada fuente: páginas, caracteres por página, pá
 
 Cuatro preguntas fuera del corpus (Indecopi, caja municipal, CTS y DIGESA) se parecen más al corpus que D05, así que ningún umbral las detiene sin perder una pregunta legítima. Las cuatro las detiene la **segunda defensa**: el LLM revisa los fragmentos y marca `fuera_de_corpus`. Lo comprobé con el motor completo. Detalle en [eval/resultados/puntajes_top1_oai3small_c500_s150.md](eval/resultados/puntajes_top1_oai3small_c500_s150.md).
 
+**Ficha del negocio.** [eval/casos_ficha.yaml](eval/casos_ficha.yaml) tiene 8 descripciones escritas con datos inventados, cada una con el valor correcto de cada campo:
+- bodegas que cumplen y que no cumplen (por área, y por estar fuera de la vivienda, en un tercer piso y sin puerta a la calle);
+- una peluquería y una venta por Instagram;
+- números en palabras, montos como «S/ 9,500» y una persona que se corrige a mitad de frase.
+
+Cada caso se corrió **2 veces** con `procesar_texto`, el mismo que usa la app:
+
+| Campos | % correcto | % verificado | % por confirmar | % no mencionado | Verificado con valor incorrecto |
+|---|---|---|---|---|---|
+| Números (área, piso, ventas, compras) | 100 % | 94 % | 0 % | 6 % | 0 |
+| Textos (giro, nombre, dirección, distrito, provincia, depto.) | 100 % | 52 % | 2 % | 46 % | 0 |
+| Sí/no que deciden el camino (local, vivienda, acceso) | 100 % | 0 % | 92 % | 8 % | 0 |
+| ¿Tiene RUC? | 100 % | 100 % | 0 % | 0 % | 0 |
+
+> ⚠️ **8 casos son una muestra pequeña**, y los escribió el agente, no usuarios reales: sirven para ver patrones, no para afirmar que la ficha acierta siempre. La tabla por campo está en [eval/resultados/ficha_resumen.md](eval/resultados/ficha_resumen.md).
+
+Cómo leer la tabla:
+- **«No mencionado» es una respuesta correcta.** Cuando el texto no dice un dato (por ejemplo, la provincia), lo correcto es dejarlo vacío, y la IA no lo dedujo en ningún caso.
+- **Los sí/no que deciden el camino nunca quedan verificados:** por diseño, siempre los confirma el usuario.
+- **La IA dio el mismo valor en las dos corridas en 111 de 112 campos.** El único cambio fue un distrito: «Cercado de Arequipa» en una corrida y «Cercado» en la otra.
+- **La persona que se corrige** («mide 40, no, perdón, 45») salió bien en las dos corridas. Pero la verificación no lo garantiza: comprueba que el valor esté en la cita, y esa cita contiene el 40 y el 45.
+- **El camino preliminar acertó en 14 de 16 corridas.** Las 2 que fallaron son del mismo caso y no es un error de la IA. La ficha dice «bodeguita», y la regla busca la palabra «bodega» en el giro (`palabras_giro` en `config.yaml`), así que no la reconoce como bodega y da camino B en vez de A.
+
 ## 7. Modelo de negocio
 
 **Gratis para el bodeguero.** Pagan quienes ganan cuando un negocio se formaliza (hipótesis que validan las entrevistas):
@@ -226,7 +251,8 @@ El proyecto se construyó con Claude Code siguiendo [PLAN.md](PLAN.md) y [CLAUDE
 - la configuración de fragmentos (500/150), la regla del umbral y las versiones de los paquetes.
 
 **Lo que generó el agente:**
-- `src/voz.py`, `src/ficha.py` (con la regla de verificación valor + cita), `src/reglas.py`, `src/formulario.py`, `src/motor.py`, `app.py`, las 64 pruebas de `tests/` y `scripts/costo_por_usuario.py`.
+- `src/voz.py`, `src/ficha.py` (con la regla de verificación valor + cita), `src/reglas.py`, `src/formulario.py`, `src/motor.py`, `app.py`, las 64 pruebas de `tests/`, `scripts/costo_por_usuario.py`, `scripts/prueba_demo.py` y `eval/evaluar_ficha.py`.
+- **Los 8 casos de [eval/casos_ficha.yaml](eval/casos_ficha.yaml)** y su valor correcto de cada campo (datos inventados); Michelle debe revisarlos.
 - Los textos y prompts de `config.yaml`, este README y `docs/mapa_codigo.md`.
 - **Las 20 preguntas de evaluación.** Las redactó el agente, comprobando la página de cada respuesta en el corpus; Michelle debe revisarlas.
 - La búsqueda de los enlaces oficiales que faltaban (Ley 30877, D.S. 010 en El Peruano, PDF de la Ley 31866 y el D.S. 003-2024, cuyo enlace del plan daba 404).

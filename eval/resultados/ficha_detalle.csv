@@ -1,0 +1,225 @@
+caso,corrida,campo,esperado,obtenido,estado,correcto,cita
+C1,1,giro,bodega,bodega,verificado,True,Tengo una bodega
+C1,1,tiene_local_al_publico,True,True,por_confirmar,True,los vecinos entran a comprar
+C1,1,nombre_comercial,Bodega Doña Rosa,Bodega Doña Rosa,verificado,True,se llama Bodega Doña Rosa
+C1,1,direccion,jirón Los Pinos 245,jirón Los Pinos 245,verificado,True,en el jirón Los Pinos 245
+C1,1,distrito,San Martín de Porres,San Martín de Porres,verificado,True,distrito de San Martín de Porres
+C1,1,provincia,Lima,Lima,verificado,True,provincia de Lima
+C1,1,departamento,Lima,Lima,verificado,True,departamento de Lima
+C1,1,area_m2,28,28,verificado,True,mide 28 metros cuadrados
+C1,1,en_vivienda,True,True,por_confirmar,True,en mi casa
+C1,1,piso,1,1,verificado,True,Está en el primer piso
+C1,1,acceso_directo_via_publica,True,True,por_confirmar,True,la puerta da directo a la calle
+C1,1,ventas_mensuales,4500,4500,verificado,True,Vendo unos 4500 soles al mes
+C1,1,compras_mensuales,3200,3200,verificado,True,compro 3200 en mercadería
+C1,1,tiene_ruc,False,False,verificado,True,No tengo RUC
+C1,2,giro,bodega,bodega,verificado,True,Tengo una bodega
+C1,2,tiene_local_al_publico,True,True,por_confirmar,True,los vecinos entran a comprar
+C1,2,nombre_comercial,Bodega Doña Rosa,Bodega Doña Rosa,verificado,True,Bodega Doña Rosa
+C1,2,direccion,jirón Los Pinos 245,jirón Los Pinos 245,verificado,True,jirón Los Pinos 245
+C1,2,distrito,San Martín de Porres,San Martín de Porres,verificado,True,distrito de San Martín de Porres
+C1,2,provincia,Lima,Lima,verificado,True,provincia de Lima
+C1,2,departamento,Lima,Lima,verificado,True,departamento de Lima
+C1,2,area_m2,28,28,verificado,True,mide 28 metros cuadrados
+C1,2,en_vivienda,True,True,por_confirmar,True,en mi casa
+C1,2,piso,1,1,verificado,True,primer piso
+C1,2,acceso_directo_via_publica,True,True,por_confirmar,True,la puerta da directo a la calle
+C1,2,ventas_mensuales,4500,4500,verificado,True,Vendo unos 4500 soles al mes
+C1,2,compras_mensuales,3200,3200,verificado,True,compro 3200 en mercadería
+C1,2,tiene_ruc,False,False,verificado,True,No tengo RUC.
+C2,1,giro,"['bodega', 'bodeguita']",bodeguita,verificado,True,Mi bodeguita
+C2,1,tiene_local_al_publico,True,True,por_confirmar,True,por donde suben los clientes
+C2,1,nombre_comercial,,,no_mencionado,True,
+C2,1,direccion,,,no_mencionado,True,
+C2,1,distrito,Villa El Salvador,Villa El Salvador,verificado,True,Villa El Salvador
+C2,1,provincia,,,no_mencionado,True,
+C2,1,departamento,,,no_mencionado,True,
+C2,1,area_m2,35,35,verificado,True,Tiene treinta y cinco metros cuadrados
+C2,1,en_vivienda,True,True,por_confirmar,True,de mi casa
+C2,1,piso,2,2,verificado,True,en el segundo piso
+C2,1,acceso_directo_via_publica,True,True,por_confirmar,True,una escalera que sale directo a la calle
+C2,1,ventas_mensuales,4800,4800,verificado,True,Al mes vendo cuatro mil ochocientos soles
+C2,1,compras_mensuales,2500,2500,verificado,True,compro dos mil quinientos
+C2,1,tiene_ruc,False,False,verificado,True,Todavía no saco mi RUC
+C2,2,giro,"['bodega', 'bodeguita']",bodeguita,verificado,True,Mi bodeguita
+C2,2,tiene_local_al_publico,True,True,por_confirmar,True,por donde suben los clientes
+C2,2,nombre_comercial,,,no_mencionado,True,
+C2,2,direccion,,,no_mencionado,True,
+C2,2,distrito,Villa El Salvador,Villa El Salvador,verificado,True,en Villa El Salvador
+C2,2,provincia,,,no_mencionado,True,
+C2,2,departamento,,,no_mencionado,True,
+C2,2,area_m2,35,35,verificado,True,Tiene treinta y cinco metros cuadrados.
+C2,2,en_vivienda,True,True,por_confirmar,True,de mi casa
+C2,2,piso,2,2,verificado,True,está en el segundo piso
+C2,2,acceso_directo_via_publica,True,True,por_confirmar,True,una escalera que sale directo a la calle
+C2,2,ventas_mensuales,4800,4800,verificado,True,Al mes vendo cuatro mil ochocientos soles
+C2,2,compras_mensuales,2500,2500,verificado,True,compro dos mil quinientos
+C2,2,tiene_ruc,False,False,verificado,True,Todavía no saco mi RUC.
+C3,1,giro,"['bodega', 'bodega de abarrotes', 'abarrotes']",bodega de abarrotes,verificado,True,Tengo una bodega de abarrotes
+C3,1,tiene_local_al_publico,True,True,por_confirmar,True,atiendo a los clientes adentro
+C3,1,nombre_comercial,,,no_mencionado,True,
+C3,1,direccion,,,no_mencionado,True,
+C3,1,distrito,Chiclayo,Chiclayo,verificado,True,en el distrito de Chiclayo
+C3,1,provincia,,,no_mencionado,True,
+C3,1,departamento,,,no_mencionado,True,
+C3,1,area_m2,80,80,verificado,True,mide 80 metros cuadrados
+C3,1,en_vivienda,True,True,por_confirmar,True,en el primer piso de mi casa
+C3,1,piso,1,1,verificado,True,en el primer piso
+C3,1,acceso_directo_via_publica,True,True,por_confirmar,True,con puerta a la calle
+C3,1,ventas_mensuales,7000,7000,verificado,True,Vendo como 7 mil soles mensuales
+C3,1,compras_mensuales,6000,6000,verificado,True,compro 6 mil
+C3,1,tiene_ruc,True,True,verificado,True,Ya tengo RUC.
+C3,2,giro,"['bodega', 'bodega de abarrotes', 'abarrotes']",bodega de abarrotes,verificado,True,Tengo una bodega de abarrotes
+C3,2,tiene_local_al_publico,True,True,por_confirmar,True,atiendo a los clientes adentro
+C3,2,nombre_comercial,,,no_mencionado,True,
+C3,2,direccion,,,no_mencionado,True,
+C3,2,distrito,Chiclayo,Chiclayo,verificado,True,en el distrito de Chiclayo
+C3,2,provincia,,,no_mencionado,True,
+C3,2,departamento,,,no_mencionado,True,
+C3,2,area_m2,80,80,verificado,True,mide 80 metros cuadrados
+C3,2,en_vivienda,True,True,por_confirmar,True,en el primer piso de mi casa
+C3,2,piso,1,1,verificado,True,en el primer piso
+C3,2,acceso_directo_via_publica,True,True,por_confirmar,True,con puerta a la calle
+C3,2,ventas_mensuales,7000,7000,verificado,True,Vendo como 7 mil soles mensuales
+C3,2,compras_mensuales,6000,6000,verificado,True,compro 6 mil
+C3,2,tiene_ruc,True,True,verificado,True,Ya tengo RUC
+C4,1,giro,"['abarrotes', 'puesto de abarrotes', 'venta de abarrotes', 'bodega de abarrotes']",puesto de abarrotes,verificado,True,Alquilo un puesto de abarrotes
+C4,1,tiene_local_al_publico,True,True,por_confirmar,True,Los clientes llegan por la escalera de la galería
+C4,1,nombre_comercial,,,no_mencionado,True,
+C4,1,direccion,,,no_mencionado,True,
+C4,1,distrito,Cercado de Arequipa,Cercado de Arequipa,verificado,True,en el Cercado de Arequipa
+C4,1,provincia,,,no_mencionado,True,
+C4,1,departamento,,,no_mencionado,True,
+C4,1,area_m2,12,12,verificado,True,Son 12 metros cuadrados
+C4,1,en_vivienda,False,False,por_confirmar,True,"no es mi casa, yo vivo en otro lado"
+C4,1,piso,3,3,verificado,True,en el tercer piso
+C4,1,acceso_directo_via_publica,False,False,por_confirmar,True,no hay puerta a la calle
+C4,1,ventas_mensuales,3000,3000,verificado,True,Vendo 3 mil soles al mes
+C4,1,compras_mensuales,2000,2000,verificado,True,compro 2 mil
+C4,1,tiene_ruc,False,False,verificado,True,No tengo RUC
+C4,2,giro,"['abarrotes', 'puesto de abarrotes', 'venta de abarrotes', 'bodega de abarrotes']",puesto de abarrotes,verificado,True,puesto de abarrotes
+C4,2,tiene_local_al_publico,True,True,por_confirmar,True,Los clientes llegan por la escalera de la galería
+C4,2,nombre_comercial,,,no_mencionado,True,
+C4,2,direccion,,,no_mencionado,True,
+C4,2,distrito,Cercado de Arequipa,Cercado,verificado,True,en el Cercado de Arequipa
+C4,2,provincia,,,no_mencionado,True,
+C4,2,departamento,,,no_mencionado,True,
+C4,2,area_m2,12,12,verificado,True,Son 12 metros cuadrados
+C4,2,en_vivienda,False,False,por_confirmar,True,"no es mi casa, yo vivo en otro lado"
+C4,2,piso,3,3,verificado,True,en el tercer piso
+C4,2,acceso_directo_via_publica,False,False,por_confirmar,True,no hay puerta a la calle
+C4,2,ventas_mensuales,3000,3000,verificado,True,Vendo 3 mil soles al mes
+C4,2,compras_mensuales,2000,2000,verificado,True,compro 2 mil
+C4,2,tiene_ruc,False,False,verificado,True,No tengo RUC
+C5,1,giro,"['peluquería', 'peluqueria']",peluquería,verificado,True,Tengo una peluquería
+C5,1,tiene_local_al_publico,True,True,por_confirmar,True,ahí atiendo a mis clientas
+C5,1,nombre_comercial,Estilo Carmen,Estilo Carmen,verificado,True,se llama Estilo Carmen
+C5,1,direccion,avenida Grau 1020,avenida Grau 1020,verificado,True,en la avenida Grau 1020
+C5,1,distrito,Trujillo,Trujillo,verificado,True,en el distrito de Trujillo
+C5,1,provincia,,,no_mencionado,True,
+C5,1,departamento,,,no_mencionado,True,
+C5,1,area_m2,40,40,verificado,True,40 metros cuadrados
+C5,1,en_vivienda,False,False,por_confirmar,True,no vivo ahí
+C5,1,piso,1,1,verificado,True,Está en el primer piso
+C5,1,acceso_directo_via_publica,True,True,por_confirmar,True,frente a la calle
+C5,1,ventas_mensuales,6000,6000,verificado,True,unos seis mil soles al mes
+C5,1,compras_mensuales,1500,1500,verificado,True,como mil quinientos en productos
+C5,1,tiene_ruc,True,True,verificado,True,Tengo RUC desde el año pasado
+C5,2,giro,"['peluquería', 'peluqueria']",peluquería,verificado,True,Tengo una peluquería
+C5,2,tiene_local_al_publico,True,True,por_confirmar,True,ahí atiendo a mis clientas
+C5,2,nombre_comercial,Estilo Carmen,Estilo Carmen,verificado,True,se llama Estilo Carmen
+C5,2,direccion,avenida Grau 1020,avenida Grau 1020,verificado,True,en la avenida Grau 1020
+C5,2,distrito,Trujillo,Trujillo,verificado,True,en el distrito de Trujillo
+C5,2,provincia,,,no_mencionado,True,
+C5,2,departamento,,,no_mencionado,True,
+C5,2,area_m2,40,40,verificado,True,de 40 metros cuadrados
+C5,2,en_vivienda,False,False,por_confirmar,True,no vivo ahí
+C5,2,piso,1,1,verificado,True,Está en el primer piso
+C5,2,acceso_directo_via_publica,True,True,por_confirmar,True,frente a la calle
+C5,2,ventas_mensuales,6000,6000,verificado,True,Vendo en servicios unos seis mil soles al mes
+C5,2,compras_mensuales,1500,1500,verificado,True,compro como mil quinientos en productos
+C5,2,tiene_ruc,True,True,verificado,True,Tengo RUC desde el año pasado
+C6,1,giro,"['postres', 'venta de postres']",venta de postres,por_confirmar,True,Vendo postres
+C6,1,tiene_local_al_publico,False,False,por_confirmar,True,no tengo tienda ni local
+C6,1,nombre_comercial,,,no_mencionado,True,
+C6,1,direccion,,,no_mencionado,True,
+C6,1,distrito,Los Olivos,Los Olivos,verificado,True,en Los Olivos
+C6,1,provincia,,,no_mencionado,True,
+C6,1,departamento,,,no_mencionado,True,
+C6,1,area_m2,,,no_mencionado,True,
+C6,1,en_vivienda,,,no_mencionado,True,
+C6,1,piso,,,no_mencionado,True,
+C6,1,acceso_directo_via_publica,,,no_mencionado,True,
+C6,1,ventas_mensuales,1800,1800,verificado,True,Vendo unos mil ochocientos soles al mes
+C6,1,compras_mensuales,700,700,verificado,True,compro unos setecientos en insumos
+C6,1,tiene_ruc,False,False,verificado,True,No tengo RUC.
+C6,2,giro,"['postres', 'venta de postres']",venta de postres,por_confirmar,True,Vendo postres
+C6,2,tiene_local_al_publico,False,False,por_confirmar,True,no tengo tienda ni local
+C6,2,nombre_comercial,,,no_mencionado,True,
+C6,2,direccion,,,no_mencionado,True,
+C6,2,distrito,Los Olivos,Los Olivos,verificado,True,en Los Olivos
+C6,2,provincia,,,no_mencionado,True,
+C6,2,departamento,,,no_mencionado,True,
+C6,2,area_m2,,,no_mencionado,True,
+C6,2,en_vivienda,,,no_mencionado,True,
+C6,2,piso,,,no_mencionado,True,
+C6,2,acceso_directo_via_publica,,,no_mencionado,True,
+C6,2,ventas_mensuales,1800,1800,verificado,True,Vendo unos mil ochocientos soles al mes
+C6,2,compras_mensuales,700,700,verificado,True,compro unos setecientos en insumos
+C6,2,tiene_ruc,False,False,verificado,True,No tengo RUC.
+C7,1,giro,bodega,bodega,verificado,True,Tengo una bodega
+C7,1,tiene_local_al_publico,True,True,por_confirmar,True,donde atiendo a los vecinos
+C7,1,nombre_comercial,,,no_mencionado,True,
+C7,1,direccion,,,no_mencionado,True,
+C7,1,distrito,Ate,Ate,verificado,True,en Ate
+C7,1,provincia,,,no_mencionado,True,
+C7,1,departamento,,,no_mencionado,True,
+C7,1,area_m2,45,45,verificado,True,"Mide 40, no, perdón, 45 metros cuadrados"
+C7,1,en_vivienda,True,True,por_confirmar,True,en mi casa
+C7,1,piso,1,1,verificado,True,en el primer piso
+C7,1,acceso_directo_via_publica,True,True,por_confirmar,True,con puerta a la calle
+C7,1,ventas_mensuales,4000,4000,verificado,True,"bueno, en realidad son como cuatro mil"
+C7,1,compras_mensuales,2500,2500,verificado,True,Compro dos mil quinientos
+C7,1,tiene_ruc,False,False,verificado,True,No tengo RUC.
+C7,2,giro,bodega,bodega,verificado,True,Tengo una bodega
+C7,2,tiene_local_al_publico,True,True,por_confirmar,True,donde atiendo a los vecinos
+C7,2,nombre_comercial,,,no_mencionado,True,
+C7,2,direccion,,,no_mencionado,True,
+C7,2,distrito,Ate,Ate,verificado,True,en Ate
+C7,2,provincia,,,no_mencionado,True,
+C7,2,departamento,,,no_mencionado,True,
+C7,2,area_m2,45,45,verificado,True,45 metros cuadrados
+C7,2,en_vivienda,True,True,por_confirmar,True,Tengo una bodega en mi casa
+C7,2,piso,1,1,verificado,True,en el primer piso
+C7,2,acceso_directo_via_publica,True,True,por_confirmar,True,con puerta a la calle
+C7,2,ventas_mensuales,4000,4000,verificado,True,son como cuatro mil
+C7,2,compras_mensuales,2500,2500,verificado,True,Compro dos mil quinientos
+C7,2,tiene_ruc,False,False,verificado,True,No tengo RUC.
+C8,1,giro,bodega,Bodega,verificado,True,Bodega
+C8,1,tiene_local_al_publico,True,True,por_confirmar,True,los clientes entran a comprar
+C8,1,nombre_comercial,Bodega Los Girasoles,Bodega Los Girasoles,verificado,True,Bodega Los Girasoles
+C8,1,direccion,calle Las Flores 330,calle Las Flores 330,verificado,True,calle Las Flores 330
+C8,1,distrito,Cayma,Cayma,verificado,True,distrito de Cayma
+C8,1,provincia,Arequipa,Arequipa,verificado,True,provincia de Arequipa
+C8,1,departamento,Arequipa,Arequipa,verificado,True,departamento de Arequipa
+C8,1,area_m2,50,50,verificado,True,tiene 50 metros cuadrados
+C8,1,en_vivienda,True,True,por_confirmar,True,Funciona en el primer piso de nuestra casa
+C8,1,piso,1,1,verificado,True,primer piso
+C8,1,acceso_directo_via_publica,True,True,por_confirmar,True,puerta a la calle
+C8,1,ventas_mensuales,9500,9500,verificado,True,"Vendemos S/ 9,500 al mes"
+C8,1,compras_mensuales,7200,7200,verificado,True,"compramos S/ 7,200"
+C8,1,tiene_ruc,True,True,verificado,True,Tenemos RUC.
+C8,2,giro,bodega,Bodega,verificado,True,Bodega
+C8,2,tiene_local_al_publico,True,True,por_confirmar,True,los clientes entran a comprar
+C8,2,nombre_comercial,Bodega Los Girasoles,Bodega Los Girasoles,verificado,True,Bodega Los Girasoles
+C8,2,direccion,calle Las Flores 330,calle Las Flores 330,verificado,True,calle Las Flores 330
+C8,2,distrito,Cayma,Cayma,verificado,True,distrito de Cayma
+C8,2,provincia,Arequipa,Arequipa,verificado,True,provincia de Arequipa
+C8,2,departamento,Arequipa,Arequipa,verificado,True,departamento de Arequipa
+C8,2,area_m2,50,50,verificado,True,tiene 50 metros cuadrados
+C8,2,en_vivienda,True,True,por_confirmar,True,Funciona en el primer piso de nuestra casa
+C8,2,piso,1,1,verificado,True,primer piso
+C8,2,acceso_directo_via_publica,True,True,por_confirmar,True,puerta a la calle
+C8,2,ventas_mensuales,9500,9500,verificado,True,"Vendemos S/ 9,500 al mes"
+C8,2,compras_mensuales,7200,7200,verificado,True,"compramos S/ 7,200"
+C8,2,tiene_ruc,True,True,verificado,True,Tenemos RUC

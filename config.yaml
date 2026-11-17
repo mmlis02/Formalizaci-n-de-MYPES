@@ -656,3 +656,21 @@ mensajes:
     ds003_2024_produce: >-
       El D.S. N.° 003-2024-PRODUCE (15/02/2024) modifica solo los artículos 19 y 21 del Reglamento
       de la Ley N.° 30877 (D.S. N.° 010-2020-PRODUCE); los demás artículos siguen vigentes.
+
+# ---------------------------------------------------------------------------
+# Evaluación de la ficha (eval/evaluar_ficha.py) y prueba de la demo (scripts/prueba_demo.py).
+# Todos los datos son INVENTADOS.
+# ---------------------------------------------------------------------------
+evaluacion_ficha:
+  casos: eval/casos_ficha.yaml
+  repeticiones: 2        # el LLM no siempre responde igual: cada caso se corre 2 veces
+  resultados: eval/resultados
+
+demo:
+  # El texto de la bodega es el mismo ejemplo de la app (app > cuentame > ejemplo_texto)
+  camino_esperado: A
+  # Lo que respondería el usuario si la IA deja vacío un dato que decide el camino (el texto lo dice)
+  respuestas_usuario: {tiene_local_al_publico: true, en_vivienda: true, acceso_directo_via_publica: true}
+  pregunta_con_cita: "¿Hasta qué tamaño puede ser mi bodega para la licencia provisional?"
+  pregunta_fuera: "¿Cómo se prepara un buen ceviche para vender en mi local?"   # F01: se abstiene sin IA
+  datos_personales: {nombre_completo: "Rosa Prueba Inventada", dni: "00000000"}
