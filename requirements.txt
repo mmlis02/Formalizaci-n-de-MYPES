@@ -4,6 +4,8 @@ PyYAML==6.0.3
 python-dotenv==1.2.3
 requests==2.34.2
 pandas==3.0.6
+numpy==2.5.5            # se importa directo en src/embeddings.py (no solo vía chromadb)
+tzdata==2026.6          # zonas horarias para zoneinfo (costos por franja) en Linux mínimos
 # --- Modelo por API (OpenAI) ---
 openai==3.19.2
 tiktoken==0.14.0
