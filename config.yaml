@@ -368,7 +368,7 @@ mensajes:
     El modelo generó una respuesta sin citar ningún documento; por seguridad no se muestra.
   pregunta_vacia: "Escribe una pregunta."
   error_api: "No se pudo obtener respuesta del modelo de lenguaje. Intenta de nuevo en unos minutos."
-  nota_modificado: "Texto vigente: modificado por {norma}, publicada el {fecha}."
+  nota_modificado: "Texto vigente: modificado por {norma} (publicación: {fecha})."
   # Notas que se agregan cuando se cita un documento que solo modifica a otro
   notas_por_documento:
     ley31866: >-
