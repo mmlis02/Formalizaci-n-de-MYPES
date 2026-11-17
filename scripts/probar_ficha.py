@@ -1,6 +1,6 @@
-"""Prueba manual del flujo voz -> ficha (cuesta centavos: llama a Whisper y al LLM).
+"""Prueba manual del flujo voz -> ficha -> diagnóstico (cuesta centavos: llama a Whisper y al LLM).
 
-Muestra la transcripción, cada campo con su estado de verificación y el costo.
+Muestra la transcripción, cada campo con su estado de verificación, el diagnóstico preliminar y el costo.
 
 Uso (desde la raíz del proyecto):
     python scripts/probar_ficha.py tests/datos/audio_sintetico.m4a      # audio
@@ -30,6 +30,12 @@ def main():
     for nombre, c in r["ficha"]["campos"].items():
         print(f"{c['estado']:14} {nombre:27} {c['valor']!r:26} cita={c['cita']!r}")
     print("\nResumen:", r["ficha"]["resumen"])
+    d = r["diagnostico"]
+    print(f"\nDIAGNÓSTICO PRELIMINAR: camino {d['camino']} | régimen: {d['regimen']['texto'] if d['regimen'] else '-'}")
+    for p in d["preguntas_pendientes"]:
+        print("  Pregunta pendiente:", p["pregunta"])
+    for c in d["condiciones_bodega"]:
+        print(f"  Condición de bodega: {c['texto']} -> {c['cumple']}")
 
 
 if __name__ == "__main__":

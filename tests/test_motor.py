@@ -24,3 +24,23 @@ def test_si_falla_el_audio_no_se_llama_al_llm(cfg, tmp_path):
 def test_procesar_texto_vacio(cfg):
     r = procesar_texto("", cfg, ClienteFalso({}))
     assert r["error"] == cfg["ficha"]["mensajes"]["texto_vacio"]
+
+
+def test_flujo_completo_hasta_el_pdf(cfg, tmp_path, respuesta_llm):
+    """audio -> ficha -> diagnóstico preliminar -> el usuario confirma y completa -> diagnóstico -> PDF."""
+    from src.motor import diagnosticar, generar_formulario
+    from src.reglas import valores
+
+    archivo = tmp_path / "audio.m4a"
+    archivo.write_bytes(b"audio falso")
+    r = procesar_audio(archivo, cfg, ClienteFalso(respuesta_llm))
+    # El audio no dijo si hay local abierto al público: queda como pregunta pendiente
+    assert r["diagnostico"]["camino"] is None
+    assert [p["campo"] for p in r["diagnostico"]["preguntas_pendientes"]] == ["tiene_local_al_publico"]
+
+    datos = valores(r["ficha"])
+    datos.update(tiene_local_al_publico=True, distrito="San Juan de Lurigancho")  # el usuario responde y corrige
+    d = diagnosticar(datos, cfg)
+    assert d["camino"] == "A" and d["completo"]
+    pdf = generar_formulario(d, datos, {"nombre_completo": "Rosa Prueba Inventada", "dni": "00000000"}, cfg)
+    assert pdf.startswith(b"%PDF")
