@@ -25,7 +25,7 @@ from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import cm
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 from src.config import cargar_config
 from src.reglas import valores
@@ -205,9 +205,129 @@ def _formato_bodegas(v: dict, dp: dict) -> list:
 
 
 # ---------------------------------------------------------------------------
+# Camino B: DJ para Licencia de Funcionamiento (Anexo 1 del D.S. 163-2020-PCM)
+# ---------------------------------------------------------------------------
+def _casilla(texto: str, marcada: bool = False) -> Paragraph:
+    return _p(f"[{'X' if marcada else '   '}] {texto}", E_TEXTO)
+
+
+def modalidad() -> Table:
+    """Sección I. Se marca solo "Licencia de funcionamiento - Indeterminada": es una licencia nueva y la
+    vigencia indeterminada es la regla general (TUO de la Ley 28976, art. 11). Lo demás queda en blanco."""
+    columnas = [
+        [_p("Licencia de funcionamiento", E_NEGRITA), _casilla("Indeterminada", True),
+         _casilla("Temporal  (indicar el plazo: ____________)"),
+         _casilla("Licencia de funcionamiento más autorización de anuncio publicitario (tipo de anuncio: ________)"),
+         _casilla("Licencia para Cesionario"),
+         _casilla("Licencias para mercados de abastos, galerías comerciales y centros comerciales")],
+        [_p("Cambios o modificaciones", E_NEGRITA),
+         _casilla("Cambio de denominación o nombre comercial de la persona jurídica (sólo completar secciones I, "
+                  "II y III). N° de licencia: ________  Nueva denominación: ____________"),
+         _casilla("Transferencia de Licencia de Funcionamiento (sólo completar secciones I, II y III y adjuntar "
+                  "copia simple de contrato de transferencia). N° de licencia: ________")],
+        [_p("Otros", E_NEGRITA),
+         _casilla("Cese de Actividades (sólo completar secciones I, II y III). N° de licencia: ________"),
+         _casilla("Otros (especificar): ____________")],
+    ]
+    return _tabla([columnas], [6.5 * cm, 6.5 * cm, 5 * cm], [("VALIGN", (0, 0), (-1, -1), "TOP")])
+
+
+def nivel_de_riesgo() -> Table:
+    """Sección VI: la llena SOLO el calificador de la municipalidad. La app nunca decide el riesgo."""
+    filas = [[_casilla("ITSE Riesgo bajo"), _casilla("ITSE Riesgo medio"),
+              _casilla("ITSE Riesgo alto"), _casilla("ITSE Riesgo muy alto")],
+             ["", "", "", ""],
+             [_p("Firma y sello del calificador municipal", E_TEXTO), "", _p("Nombres y Apellidos:", E_TEXTO), ""]]
+    t = _tabla(filas, [4.5 * cm] * 4, [("SPAN", (0, 1), (-1, 1)), ("SPAN", (0, 2), (1, 2)), ("SPAN", (2, 2), (3, 2))])
+    t._argH[1] = 1.2 * cm
+    return t
+
+
+def _formato_anexo1(v: dict, dp: dict) -> list:
+    municipalidad = f"Municipalidad distrital de {v['distrito']}" if v.get("distrito") else "Municipalidad: ____________"
+    subtitulo = f"LEY N° 28976 - Ley Marco de Licencia de Funcionamiento y Modificatorias · {municipalidad}"
+    titulo = "FORMATO DE DECLARACIÓN JURADA PARA LICENCIA DE FUNCIONAMIENTO"
+    casillas_mun = ["N° de expediente:", "Fecha de recepción:", "N° de recibo de pago:", "Fecha de pago:"]
+    return [
+        # --- Página 1 ---
+        encabezado(titulo, subtitulo, ["Página: 1 de 2", *casillas_mun]),
+        _p("VER INSTRUCCIONES PARA EL LLENADO (Página 2)", E_NOTA),
+        seccion("I. MODALIDAD DEL TRÁMITE QUE SOLICITA (marcar más de una alternativa si corresponde)"),
+        modalidad(),
+        seccion("II. DATOS DEL SOLICITANTE"),
+        *_solicitante(dp),
+        campos(["Dirección: Av. / Jr. / Ca. / Pje. / Otros", "N° / Int. / Mz. / Lt. / Otros", "Urb. / AA.HH. / Otros",
+                "Distrito y Provincia"], ["", "", "", ""], [5, 3.5, 4, 5.5]),
+        seccion("III. DATOS DEL REPRESENTANTE LEGAL O APODERADO"),
+        campos(["Apellidos y Nombres", "N° DNI / N° C.E",
+                "N° de partida electrónica y asiento de inscripción SUNARP (de corresponder)"],
+               ["", "", ""], [8, 4, 6]),
+        seccion("IV. DATOS DEL ESTABLECIMIENTO"),
+        campos(["Nombre Comercial"], [v.get("nombre_comercial")], [18]),
+        # CIIU, giro y zonificación los define la municipalidad: siempre en blanco
+        campos(["Código CIIU *", "Giro/s *", "Actividad", "Zonificación"], ["", "", v.get("giro"), ""], [3.5, 4, 6.5, 4]),
+        campos(["Dirección: Av. / Jr. / Ca. / Pje. / Otros", "N° / Int. / Mz. / Lt. / Otros", "Urb. / AA.HH. / Otros",
+                "Provincia"], [v.get("direccion"), "", "", v.get("provincia")], [5, 3.5, 4, 5.5]),
+        campos(["Autorización sectorial (de corresponder): Entidad que otorga autorización",
+                "Denominación de la autorización sectorial", "Fecha de autorización", "Número de autorización"],
+               ["", "", "", ""], [5.5, 5.5, 3.5, 3.5]),
+        croquis("Área total solicitada (m²)", _numero(v.get("area_m2"))),
+        _p("* Esta información es llenada por el representante de la municipalidad", E_NOTA),
+        PageBreak(),
+        # --- Página 2 ---
+        encabezado(titulo, subtitulo, ["Página: 2 de 2", *casillas_mun]),
+        seccion("V. DECLARACIÓN JURADA"),
+        casillas_declaro([
+            "Cuento con poder suficiente vigente para actuar como representante legal de la persona jurídica "
+            "conductora (alternativamente, de la persona natural que represento).",
+            "El establecimiento cumple con las condiciones de seguridad en edificaciones y me someto a la inspección "
+            "técnica que corresponda en función al riesgo, de conformidad con la legislación aplicable.",
+            "Cuento con título profesional vigente y estoy habilitado por el colegio profesional correspondiente "
+            "(en el caso de servicios relacionados con la salud).",
+        ]),
+        _tabla([[_p("Tengo conocimiento de que la presente Declaración Jurada y documentación está sujeta a la "
+                    "fiscalización posterior. En caso de haber proporcionado información, documentos, formatos o "
+                    "declaraciones que no corresponden a la verdad, se me aplicarán las sanciones administrativas y "
+                    "penales correspondientes, declarándose la nulidad o revocatoria de la licencia o autorización "
+                    "otorgada. Asimismo, brindaré las facilidades necesarias para las acciones de control de la "
+                    "autoridad municipal competente.", E_TEXTO)]], [ANCHO]),
+        bloque_firma(dp),
+        seccion("VI. CLASIFICACIÓN DEL NIVEL DE RIESGO (Para ser llenado por el calificador designado de la "
+                "municipalidad) *"),
+        nivel_de_riesgo(),
+        _p("* Esta información debe ser llenada por el calificador designado por la municipalidad, de acuerdo con los "
+           "anexos 2 y 3 del Manual de Ejecución de Inspección Técnica de Seguridad en Edificaciones", E_NOTA),
+        instrucciones([
+            ("Sección I:", "Marcar con una \"X\" en la casilla según la modalidad del trámite que solicita, en caso de "
+                           "corresponder puede marcar más de una alternativa. De haber marcado \"Cambio de denominación "
+                           "o nombre comercial de la persona jurídica\" o \"Cese de actividades\", solo debe completar "
+                           "las secciones I, II y III. De haber marcado \"Transferencia de Licencia de Funcionamiento\", "
+                           "debe adjuntar una copia simple del contrato de transferencia y solo debe completar las "
+                           "secciones I, II y III."),
+            ("Sección II:", "En caso de persona natural, consignar los datos personales del solicitante. En caso de "
+                            "persona jurídica, consignar la razón social y el número de RUC."),
+            ("Sección III:", "En caso de representación de personas naturales, adjuntar carta poder simple firmada por "
+                             "el poderdante indicando de manera obligatoria su número de documento de identidad. En "
+                             "caso de representación de personas jurídicas consignar los datos del representante legal, "
+                             "número de partida electrónica y asiento de inscripción en la Superintendencia Nacional de "
+                             "Registros Públicos (SUNARP)."),
+            ("Sección IV:", "Consignar los datos del establecimiento, el tipo de actividad a desarrollar y la "
+                            "zonificación. Los campos correspondientes al \"Código CIIU\" y \"Giro/s\" son completados "
+                            "por el representante de la municipalidad. Para aquellas actividades que, conforme al "
+                            "Decreto Supremo N° 006-2013-PCM, requieran autorización sectorial previa al otorgamiento "
+                            "de la licencia de funcionamiento, consignar los datos de la autorización sectorial. "
+                            "Consignar el área total para la que solicita la licencia de funcionamiento. Consignar en "
+                            "el croquis la ubicación exacta del establecimiento."),
+            ("Sección V:", "De corresponder, marcar con una X."),
+            ("Sección VI:", "Sección llenada por el calificador designado de la municipalidad."),
+        ]),
+    ]
+
+
+# ---------------------------------------------------------------------------
 # Función principal
 # ---------------------------------------------------------------------------
-FORMATOS = {"A": _formato_bodegas}
+FORMATOS = {"A": _formato_bodegas, "B": _formato_anexo1}
 
 
 def generar_pdf(camino: str, ficha: dict, datos_personales: dict, cfg: dict | None = None) -> bytes:
