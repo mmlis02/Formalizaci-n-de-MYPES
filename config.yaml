@@ -336,6 +336,52 @@ prompts:
     FRAGMENTOS:
     {fragmentos}
 
+# ---------------------------------------------------------------------------
+# App Streamlit (solo textos: la lógica está en src/motor_rag.py). Versión mínima de prueba;
+# los 3 pasos (Cuéntame → Revisa tus datos → Tu plan) llegan en el Bloque 5.
+# ---------------------------------------------------------------------------
+app:
+  titulo: "Formaliza"
+  icono: "🏪"
+  subtitulo: >-
+    Pregunta sobre cómo formalizar tu bodega o negocio. Respondo solo con la Ley General de
+    Bodegueros y su reglamento, la Ley Marco de Licencia de Funcionamiento, los formatos TUPA y
+    material de SUNAT, citando documento y página. Si la respuesta no está ahí, te lo digo.
+  aviso_legal: "Orientación informativa, no asesoría legal. Verifica siempre en la fuente oficial."
+  cargando: "Cargando el índice (solo la primera vez)..."
+  sin_clave: >-
+    Falta la clave de OpenAI. En local, crea el archivo .env (copia .env.example); en Streamlit
+    Cloud, agrégala en Settings → Secrets como OPENAI_API_KEY = "...".
+  sin_indice: >-
+    No se encontró el índice vectorial (data/index/). La app no lo construye: ejecuta una vez
+    `python build_index.py` y vuelve a abrir la app.
+  etiqueta_pregunta: "Escribe tu pregunta"
+  boton_preguntar: "Preguntar"
+  buscando: "Buscando en los documentos..."
+  ejemplos_titulo: "Prueba con un ejemplo"
+  ejemplos:
+    - "Tengo mi bodeguita en la sala de mi casa, ¿hasta qué tamaño puede ser para sacar la licencia provisional?"
+    - "Vendo como 4 mil soles al mes en mi tiendita, ¿cuánto tendría que pagarle a la SUNAT cada mes?"
+    - "¿Cuánto cuesta registrar la marca de mi negocio en Indecopi?"
+  titulo_respuesta: "Respuesta"
+  abstencion_titulo: "El asistente se abstuvo"
+  motivos:
+    umbral: "Ningún fragmento se parece lo suficiente a la pregunta (decidido sin llamar a la IA, costo 0)."
+    fuera_de_corpus: "La IA revisó los fragmentos y la respuesta no está en los documentos."
+    sin_citas: "La respuesta generada no citaba ningún documento y se descartó por seguridad."
+  titulo_limite: "Límite de los documentos"
+  titulo_notas: "Notas de versión y de fecha"
+  titulo_fuentes: "Fragmentos recuperados"
+  columnas_fuentes: {documento: "Documento", pagina: "Página", articulo: "Artículo", similitud: "Similitud", citada: "¿Citado?"}
+  m_abstuvo: "¿Se abstuvo?"
+  "si": "Sí"
+  "no": "No"
+  m_similitud: "Similitud máxima"
+  ayuda_umbral: "Umbral de abstención: {umbral}"
+  m_costo: "Costo de la consulta"
+  ayuda_costo: "{tokens_entrada} tokens de entrada / {tokens_salida} de salida · {latencia:.1f} s"
+  sin_llm: "US$ 0 (no se llamó a la IA)"
+
 # Formularios oficiales que la app llena (Bloque 4). NO van al índice: son las plantillas del PDF.
 # Se descargan junto con el corpus para tener la versión exacta que se copió.
 formularios:

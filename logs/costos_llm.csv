@@ -91,3 +91,6 @@ fecha_hora_utc,modelo,tokens_entrada,tokens_entrada_cache,tokens_salida,latencia
 2026-11-17T01:25:49+00:00,gpt-6-luna,1353,0,97,6.754,0.00018380,00:00-24:00,True,,"Tengo mi bodeguita en la sala de mi casa, ¿hasta qué tamaño puede ser para sacar la licencia provisional?"
 2026-11-17T01:25:58+00:00,text-embedding-3-small,17,,0,0.607,0.00000034,00:00-24:00,True,,[embeddings] lote de 1 textos
 2026-11-17T01:25:59+00:00,gpt-6-luna,1193,0,71,1.777,0.00015480,00:00-24:00,True,,¿Cuánto cuesta registrar la marca de mi negocio en Indecopi?
+2026-11-17T01:32:38+00:00,text-embedding-3-small,32,,0,2.026,0.00000064,00:00-24:00,True,,[embeddings] lote de 1 textos
+2026-11-17T01:32:41+00:00,gpt-6-luna,1334,1331,113,2.286,0.00007011,00:00-24:00,True,,"Vendo como 4 mil soles al mes en mi tiendita, ¿cuánto tendría que pagarle a la SUNAT cada mes?"
+2026-11-17T01:33:04+00:00,text-embedding-3-small,17,,0,0.815,0.00000034,00:00-24:00,True,,[embeddings] lote de 1 textos

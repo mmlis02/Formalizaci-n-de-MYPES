@@ -12,3 +12,8 @@ pymupdf==1.28.2
 # --- Bloque 1: índice vectorial y reportes ---
 chromadb==1.5.9
 matplotlib==3.11.2
+# --- App ---
+streamlit==1.64.0
+# ChromaDB necesita SQLite >= 3.35; en Streamlit Cloud (Linux) se usa este si el del sistema es viejo.
+# Solo Linux: en macOS/Windows no hace falta (app.py lo usa solo si está instalado).
+pysqlite3-binary==0.5.4.post2; sys_platform == "linux"
