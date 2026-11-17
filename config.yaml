@@ -266,6 +266,12 @@ precios:
         - {desde: "00:00", hasta: "24:00", por_minuto: 0.006}
   log_llamadas: logs/costos_llm.csv
 
+# Costo por usuario (scripts/costo_por_usuario.py): una sesión típica y el tipo de cambio para soles.
+costo_por_usuario:
+  sesion_tipica: {segundos_audio: 30, preguntas_chat: 3}
+  # Venta SUNAT/SBS del 05/11/2026 (último dato oficial encontrado el 16/11/2026). Actualizar antes de presentar.
+  tipo_cambio: {soles_por_dolar: 3.452, fecha: "2026-11-05", fuente: "SUNAT con información de la SBS (venta)"}
+
 # ---------------------------------------------------------------------------
 # Bloque 2: evaluación, motor RAG, modelo de lenguaje y prompts
 # ---------------------------------------------------------------------------
