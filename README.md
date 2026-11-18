@@ -8,9 +8,20 @@
 
 ## 2. Founder
 
-> **TODO Michelle:** quién eres, por qué este problema te importa y qué te hace la persona indicada para resolverlo (2–4 líneas).
+**Michelle Li** — estudiante de Economía en la Universidad del Pacífico.
 
-Michelle Li — Data Science con Python, Universidad del Pacífico (2026-II).
+**Por qué este problema:** en Economía la informalidad aparece una y otra vez como uno de los
+grandes frenos del Perú: los negocios informales no acceden a crédito formal, no pueden venderle
+a empresas ni al Estado, y quedan fuera de la protección y los programas públicos. Lo que me llamó
+la atención es que, para un negocio pequeño, muchas veces la barrera no es el costo del trámite,
+sino la información: saber qué le toca, en qué orden y con qué documentos. Ese es un problema que
+la tecnología sí puede resolver.
+
+**Por qué soy la persona indicada:** combino la mirada económica del problema (incentivos,
+costos de cumplir con la formalidad, quién gana cuando un negocio se formaliza) con lo que
+construí en este curso. Ya había desarrollado un asistente RAG sobre normas de contrataciones
+públicas, que es la base del motor legal de Formaliza: sé cómo hacer que una IA responda solo
+con lo que dice la ley, cite la página y diga "no está en mis fuentes" cuando no sabe.
 
 ## 3. Problema
 
