@@ -20,7 +20,7 @@ la tecnología sí puede resolver.
 **Por qué soy la persona indicada:** combino la mirada económica del problema (incentivos,
 costos de cumplir con la formalidad, quién gana cuando un negocio se formaliza) con lo que
 construí en este curso. Ya había desarrollado un asistente RAG sobre normas de contrataciones
-públicas, que es la base del motor legal de Formaliza: sé cómo hacer que una IA responda solo
+públicas, que es la base del motor legal de Formalízate: sé cómo hacer que una IA responda solo
 con lo que dice la ley, cite la página y diga "no está en mis fuentes" cuando no sabe.
 
 ## 3. Problema
@@ -218,7 +218,7 @@ Cómo leer la tabla:
 - **cajas municipales y fintech**, que necesitan clientes con RUC para darles crédito;
 - **distribuidoras** que venden a bodegas y prefieren clientes formales.
 
-> **TODO Michelle:** precio concreto (por ejemplo, S/ X por bodega formalizada o una suscripción mensual por municipalidad) y a quién se le cobra primero.
+**Precio:** Gratis para el emprendedor. Pagan las municipalidades, que tienen metas de formalización: S/ 1,000 al mes por municipalidad, hasta 5,000 sesiones (costo de IA: unos S/ 65 al mes a S/ 0.013 por sesión). Segundo cliente posible: cajas municipales y fintech, que necesitan clientes con RUC para darles crédito. Hipótesis por validar con municipalidades.
 
 **Costo por usuario.** Se calcula con las llamadas reales de `logs/costos_llm.csv` (`python scripts/costo_por_usuario.py`). Una sesión típica tiene 1 audio de ~30 s, 1 extracción de la ficha y 3 preguntas al chat. Supuesto conservador: las 3 preguntas llaman al LLM.
 
@@ -276,4 +276,4 @@ El proyecto se construyó con Claude Code siguiendo [PLAN.md](PLAN.md) y [CLAUDE
 - Usa `whisper-1` aunque figura como *deprecated*, porque es el Whisper del curso y responde.
 - Reutilizó la configuración de fragmentos de HW_03 sin volver a compararla con este corpus.
 
-**Lo que falta (TODO Michelle):** notas de las 3 entrevistas, precio, video y capturas; grabar `ejemplos/audio_ejemplo.m4a` (la app lo usará en lugar del audio sintético) y que 2 personas prueben la app.
+**Lo que falta (TODO Michelle):** notas de las 3 entrevistas, video y capturas; grabar `ejemplos/audio_ejemplo.m4a` (la app lo usará en lugar del audio sintético) y que 2 personas prueben la app.
