@@ -276,4 +276,4 @@ El proyecto se construyó con Claude Code siguiendo [PLAN.md](PLAN.md) y [CLAUDE
 - Usa `whisper-1` aunque figura como *deprecated*, porque es el Whisper del curso y responde.
 - Reutilizó la configuración de fragmentos de HW_03 sin volver a compararla con este corpus.
 
-**Lo que falta (TODO Michelle):** Founder, notas de las 3 entrevistas, precio, URL pública, video y capturas; grabar `ejemplos/audio_ejemplo.m4a` (la app lo usará en lugar del audio sintético) y que 2 personas prueben la app.
+**Lo que falta (TODO Michelle):** notas de las 3 entrevistas, precio, video y capturas; grabar `ejemplos/audio_ejemplo.m4a` (la app lo usará en lugar del audio sintético) y que 2 personas prueben la app.
