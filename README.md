@@ -58,7 +58,7 @@ PRODUCE estima que la Ley General de Bodegueros alcanza a [más de 500 mil bodeg
 
 ## 6. Demo
 
-**URL pública:** **TODO Michelle:** pegar la URL de Streamlit Community Cloud.
+**URL pública:** <pega aquí tu URL>
 **Video de respaldo (60–90 s):** **TODO Michelle:** pegar el link.
 
 ### Capturas
@@ -195,9 +195,9 @@ Cada caso se corrió **2 veces** con `procesar_texto`, el mismo que usa la app:
 Cómo leer la tabla:
 - **«No mencionado» es una respuesta correcta.** Cuando el texto no dice un dato (por ejemplo, la provincia), lo correcto es dejarlo vacío, y la IA no lo dedujo en ningún caso.
 - **Los sí/no que deciden el camino nunca quedan verificados:** por diseño, siempre los confirma el usuario.
-- **La IA dio el mismo valor en las dos corridas en 111 de 112 campos.** El único cambio fue un distrito: «Cercado de Arequipa» en una corrida y «Cercado» en la otra.
+- **La IA dio el mismo valor en las dos corridas en los 112 campos.** En una evaluación anterior hubo 1 cambio: un distrito salió «Cercado de Arequipa» en una corrida y «Cercado» en la otra.
 - **La persona que se corrige** («mide 40, no, perdón, 45») salió bien en las dos corridas. Pero la verificación no lo garantiza: comprueba que el valor esté en la cita, y esa cita contiene el 40 y el 45.
-- **El camino preliminar acertó en 14 de 16 corridas.** Las 2 que fallaron son del mismo caso y no es un error de la IA. La ficha dice «bodeguita», y la regla busca la palabra «bodega» en el giro (`palabras_giro` en `config.yaml`), así que no la reconoce como bodega y da camino B en vez de A.
+- **El camino preliminar acierta en 16 de 16 corridas.** La primera evaluación acertó en 14: las 2 que fallaron eran del mismo caso y no eran un error de la IA. La ficha decía «bodeguita», y la regla buscaba la palabra exacta «bodega» en el giro, así que no la reconocía como bodega y daba camino B en vez de A. Se agregó «bodeguita» a `palabras_giro` en `config.yaml`. Esto muestra para qué sirve la evaluación: encontró un error en las reglas, no en la IA.
 
 ## 7. Modelo de negocio
 

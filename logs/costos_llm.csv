@@ -140,3 +140,23 @@ fecha_hora_utc,modelo,tokens_entrada,tokens_entrada_cache,tokens_salida,latencia
 2026-11-17T05:49:19+00:00,text-embedding-3-small,16,,0,0.84,0.00000032,00:00-24:00,True,,[embeddings] lote de 1 textos
 2026-11-17T05:49:20+00:00,gpt-6-luna,1274,1271,71,1.471,0.00004851,00:00-24:00,True,,¿Hasta qué tamaño puede ser mi bodega para la licencia provisional?
 2026-11-17T05:49:22+00:00,text-embedding-3-small,17,,0,0.471,0.00000034,00:00-24:00,True,,[embeddings] lote de 1 textos
+2026-11-18T03:33:29+00:00,gpt-6-luna,1067,0,295,5.51,0.00025420,00:00-24:00,True,,[ficha] 347 caracteres
+2026-11-18T03:33:34+00:00,gpt-6-luna,1067,1064,298,4.008,0.00015994,00:00-24:00,True,,[ficha] 347 caracteres
+2026-11-18T03:33:38+00:00,gpt-6-luna,1040,0,266,3.716,0.00023700,00:00-24:00,True,,[ficha] 280 caracteres
+2026-11-18T03:33:43+00:00,gpt-6-luna,1040,1037,266,3.145,0.00014367,00:00-24:00,True,,[ficha] 280 caracteres
+2026-11-18T03:33:47+00:00,gpt-6-luna,1044,0,400,3.775,0.00030440,00:00-24:00,True,,[ficha] 253 caracteres
+2026-11-18T03:33:50+00:00,gpt-6-luna,1044,1041,267,3.307,0.00014421,00:00-24:00,True,,[ficha] 253 caracteres
+2026-11-18T03:33:54+00:00,gpt-6-luna,1054,0,280,3.454,0.00024540,00:00-24:00,True,,[ficha] 284 caracteres
+2026-11-18T03:33:57+00:00,gpt-6-luna,1054,1051,409,4.346,0.00021531,00:00-24:00,True,,[ficha] 284 caracteres
+2026-11-18T03:34:01+00:00,gpt-6-luna,1065,0,277,3.27,0.00024500,00:00-24:00,True,,[ficha] 353 caracteres
+2026-11-18T03:34:05+00:00,gpt-6-luna,1065,1062,414,4.277,0.00021792,00:00-24:00,True,,[ficha] 353 caracteres
+2026-11-18T03:34:09+00:00,gpt-6-luna,1019,0,364,3.224,0.00028390,00:00-24:00,True,,[ficha] 176 caracteres
+2026-11-18T03:34:12+00:00,gpt-6-luna,1019,0,241,2.578,0.00022240,00:00-24:00,True,,[ficha] 176 caracteres
+2026-11-18T03:34:15+00:00,gpt-6-luna,1047,0,250,3.123,0.00022970,00:00-24:00,True,,[ficha] 263 caracteres
+2026-11-18T03:34:18+00:00,gpt-6-luna,1047,1044,250,2.631,0.00013574,00:00-24:00,True,,[ficha] 263 caracteres
+2026-11-18T03:34:21+00:00,gpt-6-luna,1060,0,299,2.956,0.00025550,00:00-24:00,True,,[ficha] 308 caracteres
+2026-11-18T03:34:24+00:00,gpt-6-luna,1060,1057,299,3.132,0.00016037,00:00-24:00,True,,[ficha] 308 caracteres
+2026-11-18T03:34:29+00:00,gpt-6-luna,1022,0,250,3.066,0.00022720,00:00-24:00,True,,[ficha] 163 caracteres
+2026-11-18T03:34:32+00:00,text-embedding-3-small,16,,0,0.881,0.00000032,00:00-24:00,True,,[embeddings] lote de 1 textos
+2026-11-18T03:34:33+00:00,gpt-6-luna,1274,0,66,1.779,0.00016040,00:00-24:00,True,,¿Hasta qué tamaño puede ser mi bodega para la licencia provisional?
+2026-11-18T03:34:35+00:00,text-embedding-3-small,17,,0,0.37,0.00000034,00:00-24:00,True,,[embeddings] lote de 1 textos

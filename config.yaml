@@ -417,7 +417,7 @@ ficha:
 reglas:
   bodega:
     # Palabras que identifican una bodega en el campo "giro" (se comparan sin tildes ni mayúsculas)
-    palabras_giro: [bodega, abarrotes, "tienda de barrio"]
+    palabras_giro: [bodega, bodeguita, abarrotes, "tienda de barrio"]
     area_max_m2: 50
     pisos_permitidos: [1, 2]
     fuente: {documento: ds010_2020_produce, pagina: 5, cita: "Reglamento de la Ley 30877, art. 19 (modificado por el D.S. 003-2024-PRODUCE)"}
