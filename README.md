@@ -35,7 +35,11 @@ PRODUCE estima que la Ley General de Bodegueros alcanza a [más de 500 mil bodeg
 
 **Lo que dijeron los usuarios (3 entrevistas, guía en [docs/research/guia_entrevistas.md](docs/research/guia_entrevistas.md)):**
 
-> **TODO Michelle:** resumen de las 3 entrevistas (`docs/research/entrevista-01.md` a `-03.md`): perfil, qué les cuesta hoy, una frase literal de cada una y qué cambió en el producto por lo que dijeron.
+- **Bodeguero formal, 20 años:** «Lo más difícil es saber cuándo tengo que renovar la licencia».
+- **Ropa por Instagram, con RUC y sin licencia:** «Me confundía con los regímenes tributarios».
+- **Postres desde casa, con RUC y sin licencia:** la usaría «sobre todo si puedo explicar mi negocio mediante un audio».
+
+Los tres usarían la app y prefieren que sea gratis; dos dicen que la pague la municipalidad o el Estado. Queda fuera por ahora: cuándo renovar la licencia y qué permisos se necesitan para vender alimentos. Notas completas en [docs/research/](docs/research/).
 
 ## 4. Solución e insight
 
@@ -268,4 +272,4 @@ El proyecto se construyó con Claude Code siguiendo [PLAN.md](PLAN.md) y [CLAUDE
 - Usa `whisper-1` aunque figura como *deprecated*, porque es el Whisper del curso y responde.
 - Reutilizó la configuración de fragmentos de HW_03 sin volver a compararla con este corpus.
 
-**Lo que falta (TODO Michelle):** notas de las 3 entrevistas y video; grabar `ejemplos/audio_ejemplo.m4a` (la app lo usará en lugar del audio sintético) y que 2 personas prueben la app.
+**Lo que falta (TODO Michelle):** video; grabar `ejemplos/audio_ejemplo.m4a` (la app lo usará en lugar del audio sintético) y que 2 personas prueben la app.
