@@ -74,11 +74,9 @@ PRODUCE estima que la Ley General de Bodegueros alcanza a [más de 500 mil bodeg
 
 ### Capturas
 
-> **TODO Michelle:** reemplazar estos tres espacios por capturas guardadas en `docs/capturas/`.
-
-| 1. Cuéntame (con el aviso de privacidad) | 2. Revisa tus datos (estados y citas) | 3. Tu plan (camino, checklist citado y PDF) |
+| 1. Cuéntame (guía de qué contar y aviso de privacidad) | 2. Revisa tus datos (estados y citas) | 3. Tu plan (camino, condiciones y régimen, con fuente) |
 |---|---|---|
-| `docs/capturas/1_cuentame.png` | `docs/capturas/2_revisa.png` | `docs/capturas/3_plan.png` |
+| ![Paso 1: Cuéntame](docs/capturas/1_cuentame.png) | ![Paso 2: Revisa tus datos](docs/capturas/2_revisa.png) | ![Paso 3: Tu plan](docs/capturas/3_plan.png) |
 
 ### Cómo correrlo en local
 
@@ -270,4 +268,4 @@ El proyecto se construyó con Claude Code siguiendo [PLAN.md](PLAN.md) y [CLAUDE
 - Usa `whisper-1` aunque figura como *deprecated*, porque es el Whisper del curso y responde.
 - Reutilizó la configuración de fragmentos de HW_03 sin volver a compararla con este corpus.
 
-**Lo que falta (TODO Michelle):** notas de las 3 entrevistas, video y capturas; grabar `ejemplos/audio_ejemplo.m4a` (la app lo usará en lugar del audio sintético) y que 2 personas prueben la app.
+**Lo que falta (TODO Michelle):** notas de las 3 entrevistas y video; grabar `ejemplos/audio_ejemplo.m4a` (la app lo usará en lugar del audio sintético) y que 2 personas prueben la app.
