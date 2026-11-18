@@ -35,11 +35,7 @@ PRODUCE estima que la Ley General de Bodegueros alcanza a [más de 500 mil bodeg
 
 **Lo que dijeron los usuarios (3 entrevistas, guía en [docs/research/guia_entrevistas.md](docs/research/guia_entrevistas.md)):**
 
-- **Bodeguero formal, 20 años:** «Lo más difícil es saber cuándo tengo que renovar la licencia».
-- **Ropa por Instagram, con RUC y sin licencia:** «Me confundía con los regímenes tributarios».
-- **Postres desde casa, con RUC y sin licencia:** la usaría «sobre todo si puedo explicar mi negocio mediante un audio».
-
-Los tres usarían la app y prefieren que sea gratis; dos dicen que la pague la municipalidad o el Estado. Queda fuera por ahora: cuándo renovar la licencia y qué permisos se necesitan para vender alimentos. Notas completas en [docs/research/](docs/research/).
+Hablé con dueños de diversos tipos de negocios (una bodega, venta por redes sociales y un emprendimiento desde casa). Todos usarían la app y prefieren que sea gratuita. Notas completas en [docs/research/](docs/research/).
 
 ## 4. Solución e insight
 
