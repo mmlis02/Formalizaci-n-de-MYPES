@@ -1,29 +1,13 @@
-# Entrevista 0X — <perfil corto, p. ej. "Bodeguera informal, SJL">
+# Entrevista 0X: <perfil corto, p. ej. "Dueño de una bodega">
 
-- **Iniciales:** 
-- **Perfil:** (qué negocio tiene o a qué se dedica, desde cuándo, distrito)
-- **Fecha y canal:** (p. ej. 16-nov-2026, en persona / llamada / WhatsApp)
-- **Duración:** 
-- **Consentimiento:** sí, aceptó que se usen estas notas con sus iniciales. (¿Audio grabado? sí / no)
+**1. ¿Tienes o has tenido un negocio? ¿De qué?**
 
-## Lo que contó
-- Situación hoy (¿tiene RUC? ¿tiene licencia?):
-- Cómo lo resolvió o intentó resolverlo (pasos, tiempo, dinero):
-- Lo más difícil o confuso:
-- Dónde buscó información o a quién le preguntó:
-- Qué le cuesta no estar formal (o qué ganó al formalizarse):
-- Disposición a pagar / quién pagaría:
 
-## Frases literales
-> "..."
+**2. ¿Tienes RUC y licencia? ¿Por qué sí o por qué no?**
 
-> "..."
 
-## Lo que confirmó de mi hipótesis
-- 
+**3. Si los sacaste (o lo intentaste), ¿qué fue lo más difícil o confuso? ¿A quién le preguntaste?**
 
-## Lo que NO confirmó o me sorprendió
-- 
 
-## Qué cambio en el producto por esta conversación
-- 
+**4. Si una app te dijera qué trámites te tocan y te diera el formulario lleno, ¿la usarías? ¿Quién crees que debería pagarla?**
+
