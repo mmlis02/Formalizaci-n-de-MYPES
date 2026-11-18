@@ -58,7 +58,7 @@ PRODUCE estima que la Ley General de Bodegueros alcanza a [más de 500 mil bodeg
 
 ## 6. Demo
 
-**URL pública:** <pega aquí tu URL>
+**URL pública:** <https://formalizate.streamlit.app/#formaliza>
 **Video de respaldo (60–90 s):** **TODO Michelle:** pegar el link.
 
 ### Capturas
