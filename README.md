@@ -1,4 +1,4 @@
-# Formaliza
+# Formalízate
 
 > **Todos los datos de ejemplo de este repositorio son inventados**: el audio de prueba, la «Bodega Doña Rosa», los nombres, los DNI (`00000000`), los teléfonos y los correos. Ningún dato personal real se usó en el desarrollo ni en las pruebas.
 

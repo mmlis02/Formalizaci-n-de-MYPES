@@ -1,4 +1,4 @@
-# Configuración de Formaliza.
+# Configuración de Formalízate.
 # Todas las rutas son relativas a la carpeta donde está este archivo.
 # Nada de rutas, modelos, umbrales, prompts ni mensajes debe quedar "escrito a mano" en el código.
 
@@ -497,7 +497,7 @@ reglas:
 # código a propósito: copian el formato y no deben cambiarse. Aquí solo van los textos propios.
 formulario:
   nota_pie: >-
-    Preparado con Formaliza a partir del formato oficial ({url}). Revisa todos los datos antes de
+    Preparado con Formalízate a partir del formato oficial ({url}). Revisa todos los datos antes de
     firmar: al firmar declaras bajo juramento que son ciertos. Los espacios en blanco se llenan a mano.
   nota_municipalidad: "* Esta información la llena la municipalidad."
   sin_formulario: "El camino {camino} no tiene formulario de licencia: consulta a tu municipalidad."
@@ -507,7 +507,7 @@ formulario:
 # App Streamlit (solo textos: la lógica está en src/motor.py y src/motor_rag.py)
 # ---------------------------------------------------------------------------
 app:
-  titulo: "Formaliza"
+  titulo: "Formalízate"
   icono: "🏪"
   subtitulo: >-
     Cuéntame tu negocio con un audio o por escrito y te digo qué trámites te tocan, con la ley

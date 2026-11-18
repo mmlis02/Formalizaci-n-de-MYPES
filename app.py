@@ -1,4 +1,4 @@
-"""App Streamlit de Formaliza (SOLO interfaz). Toda la lógica está en src/:
+"""App Streamlit de Formalízate (SOLO interfaz). Toda la lógica está en src/:
   - pestaña 1, "Formalizar mi negocio": 3 pasos que llaman a src/motor.py
       1. Cuéntame        -> procesar_audio / procesar_texto (voz -> ficha verificada)
       2. Revisa tus datos -> el usuario corrige y confirma (los ⚠️ necesitan un clic)
