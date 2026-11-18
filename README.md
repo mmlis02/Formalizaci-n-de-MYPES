@@ -70,7 +70,7 @@ Hablé con dueños de diversos tipos de negocios (una bodega, venta por redes so
 ## 6. Demo
 
 **URL pública:** <https://formalizate.streamlit.app/#formaliza>
-**Video de respaldo (60–90 s):** **TODO Michelle:** pegar el link.
+**Video de respaldo (60–90 s):** <https://drive.google.com/file/d/1jyTBtaH1wFKhBQuZxAUsI5siCWaOXDM5/view?usp=drive_link>
 
 ### Capturas
 
@@ -267,5 +267,3 @@ El proyecto se construyó con Claude Code siguiendo [PLAN.md](PLAN.md) y [CLAUDE
 - En el Anexo 1 solo marca «Licencia de funcionamiento — Indeterminada», que es la regla general del art. 11 del TUO.
 - Usa `whisper-1` aunque figura como *deprecated*, porque es el Whisper del curso y responde.
 - Reutilizó la configuración de fragmentos de HW_03 sin volver a compararla con este corpus.
-
-**Lo que falta (TODO Michelle):** video; grabar `ejemplos/audio_ejemplo.m4a` (la app lo usará en lugar del audio sintético) y que 2 personas prueben la app.
