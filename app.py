@@ -133,8 +133,11 @@ def procesar(audio: bytes | None = None, nombre_audio: str = "", texto: str = ""
 def paso_cuentame():
     C = A["cuentame"]
     st.subheader(C["titulo"])
-    st.write(C["instrucciones"])
-    st.warning(C["aviso_privacidad"], icon="🔒")
+    with st.container(border=True):   # guía de qué contar, antes de grabar
+        st.markdown(f"**{C['guia_titulo']}**")
+        st.markdown("  \n".join(C["guia_puntos"]))   # "  \n" = salto de línea en Markdown
+        st.warning(C["aviso_privacidad"], icon="🔒")
+        st.caption(C["guia_ejemplo"])
 
     modo = st.segmented_control(C["etiqueta_modo"], C["modos"], default=C["modos"][0], key="modo")
     audio, nombre, texto = None, "", ""

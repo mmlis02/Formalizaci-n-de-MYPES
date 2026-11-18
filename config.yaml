@@ -528,13 +528,22 @@ app:
 
   cuentame:
     titulo: "Cuéntame de tu negocio"
-    instrucciones: >-
-      Cuéntame qué vendes, en qué distrito y dirección está tu local, cuántos metros cuadrados mide,
-      si está en tu casa y en qué piso, si la puerta da a la calle, cuánto vendes y compras al mes,
-      y si ya tienes RUC.
-    aviso_privacidad: >-
-      No digas tu nombre ni tu DNI. Los escribirás tú al final, solo para el formulario, y nunca
-      se envían a la IA.
+    # Guía de qué contar: se muestra ANTES de grabar. Cada punto es un dato que busca la ficha.
+    guia_titulo: "Cuéntanos en tu audio (unos 30 segundos):"
+    guia_puntos:
+      - "🏪 Qué vendes o a qué te dedicas (bodega, peluquería, postres…) y el nombre de tu negocio"
+      - "📍 Dónde está: dirección, distrito, provincia y departamento"
+      - "🚪 Si tienes un local donde atiendes al público o si vendes por redes o delivery"
+      - "🏠 Si el local está en tu casa, en qué piso y si la puerta da directo a la calle"
+      - "📐 Cuánto mide más o menos (en metros cuadrados)"
+      - "💰 Cuánto vendes y cuánto compras de mercadería al mes, más o menos"
+      - "🧾 Si ya tienes RUC"
+    aviso_privacidad: "No digas tu nombre ni tu DNI: los escribirás al final y no pasan por la IA."
+    # Ejemplo con datos INVENTADOS
+    guia_ejemplo: >-
+      Ejemplo: “Tengo una bodega llamada Doña Rosa en el primer piso de mi casa, en el jirón Los
+      Pinos 245, San Juan de Lurigancho, Lima. Mide como 30 metros, la puerta da a la calle, vendo
+      unos 4 mil al mes, compro unos 3 mil y no tengo RUC.”
     modos: ["Grabar audio", "Subir un audio", "Escribir"]
     etiqueta_modo: "¿Cómo me lo cuentas?"
     etiqueta_grabar: "Graba tu audio"

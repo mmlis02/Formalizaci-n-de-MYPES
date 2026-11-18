@@ -1,6 +1,6 @@
 # Mapa del código
 
-Para explicar y cambiar el código en vivo. Los números de línea son del commit en que se escribió este archivo (16/11/2026): si editas un archivo, las líneas de más abajo se corren.
+Para explicar y cambiar el código en vivo. Los números de línea son del commit en que se escribió este archivo (actualizado el 18/11/2026): si editas un archivo, las líneas de más abajo se corren.
 
 ## El flujo, en orden
 
@@ -11,7 +11,7 @@ app.py → src/motor.py → src/voz.py → src/ficha.py → src/reglas.py → sr
 
 | # | Archivo | Función principal | Qué hace |
 |---|---|---|---|
-| 1 | [app.py](../app.py) | `paso_cuentame` (133), `paso_revisa` (167), `paso_plan` (203), `chat` (284) | Solo interfaz: los 3 pasos y el chat. Llama únicamente a `src/motor.py` y `src/motor_rag.py`. |
+| 1 | [app.py](../app.py) | `paso_cuentame` (133), `paso_revisa` (170), `paso_plan` (206), `chat` (287) | Solo interfaz: los 3 pasos y el chat. Llama únicamente a `src/motor.py` y `src/motor_rag.py`. |
 | 2 | [src/motor.py](../src/motor.py) | `procesar_audio` (40), `procesar_texto` (24), `diagnosticar` (56), `generar_formulario` (61) | Une voz → ficha → reglas → formulario. Si falla el audio, no llama al LLM. |
 | 3 | [src/voz.py](../src/voz.py) | `transcribir` (30) | Revisa el archivo (que exista, el formato, el tamaño) y llama a Whisper. |
 | 4 | [src/ficha.py](../src/ficha.py) | `extraer_ficha` (126) | El LLM devuelve cada campo con su **valor** y su **cita**; `verificar_campo` (91) decide su estado. |
@@ -38,7 +38,7 @@ Piezas de apoyo:
 | ¿Dónde se decide el **camino**? | [src/reglas.py:52](../src/reglas.py#L52): `decidir_camino()`. C en la línea 56, B cuando una condición de bodega falla en la 69 y A en la 71. |
 | ¿Dónde se calcula el **Nuevo RUS**? | [src/reglas.py:74](../src/reglas.py#L74): `decidir_regimen()`. El monto que manda es `max(ventas, compras)` (línea 80); las categorías están en [config.yaml:427](../config.yaml#L427). |
 | ¿Dónde se registra el **costo** de cada llamada? | [src/costos.py:52](../src/costos.py#L52): `registrar_llamada()`. La llaman [src/llm.py:50](../src/llm.py#L50) (LLM), [src/llm.py:75](../src/llm.py#L75) (Whisper) y [src/embeddings.py:68](../src/embeddings.py#L68) (embeddings). Todo va a `logs/costos_llm.csv`. |
-| ¿Cómo sé que **los datos personales no van a la IA**? | No son campos de la ficha (`CAMPOS`, [src/ficha.py:34](../src/ficha.py#L34)). Los pide `paso_plan` en [app.py:203](../app.py#L203) y solo llegan a `generar_pdf`. Lo prueba `test_esquema_tiene_todos_los_campos_y_ninguno_personal` en `tests/test_ficha.py`. |
+| ¿Cómo sé que **los datos personales no van a la IA**? | No son campos de la ficha (`CAMPOS`, [src/ficha.py:34](../src/ficha.py#L34)). Los pide `paso_plan` en [app.py:206](../app.py#L206) y solo llegan a `generar_pdf`. Lo prueba `test_esquema_tiene_todos_los_campos_y_ninguno_personal` en `tests/test_ficha.py`. |
 | ¿Dónde se pone la **cita (documento, pág.)** en el chat? | `_poner_citas` en [src/motor_rag.py](../src/motor_rag.py): cambia cada `[Fn]` por la página que dicen los metadatos del fragmento; el LLM nunca escribe páginas. |
 | ¿Cómo se comprueba que `src/` no importa Streamlit? | `grep -rn streamlit src/` no devuelve nada. |
 
