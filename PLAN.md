@@ -1,4 +1,4 @@
-# PLAN.md — Formaliza (proyecto final, Data Science con Python, UP 2026-II)
+# PLAN.md — Formalízate (proyecto final, Data Science con Python, UP 2026-II)
 
 > Plan de trabajo para construir con Claude Code. Lo sigo en orden; cada bloque termina con un commit.
 > Presento el **miércoles 18 de noviembre, 7:55 a. m. (turno 16)**. El link va en el issue #205 **hoy lunes 16 antes de las 11:59 p. m.**
@@ -66,7 +66,7 @@ Los tres caminos comparten la parte tributaria (RUC + Nuevo RUS). La bodega es e
 
 ## 3. Qué reuso de mi repo `HW_03_202602` y qué es nuevo
 
-| Archivo en Formaliza | Viene de | Cambios |
+| Archivo en Formalízate | Viene de | Cambios |
 |---|---|---|
 | `src/costos.py` | `comun/costos.py` | Ninguno, más el precio de Whisper por minuto |
 | `src/llm.py` | `comun/llm.py` | Ninguno, más la función `transcribir()` que también registra costo |
@@ -197,7 +197,7 @@ Cambios para practicar el martes, con la app corriendo en local (`streamlit run 
 
 ```
 Nombre: Michelle Li
-Startup y one-liner: Formaliza — Ayudamos a bodegueros y pequeños emprendedores del Perú a formalizarse: cuentan su negocio en un audio y reciben qué trámites les tocan, con la ley citada, y la declaración jurada de su licencia ya llena.
+Startup y one-liner: Formalízate — Ayudamos a bodegueros y pequeños emprendedores del Perú a formalizarse: cuentan su negocio en un audio y reciben qué trámites les tocan, con la ley citada, y la declaración jurada de su licencia ya llena.
 Link del demo (URL pública, o "corre en local"): <URL de Streamlit Cloud>
 Link del repo: <URL del repo>
 Herramientas del curso que usa: Whisper, de voz a texto (sesión 13); LLM con salidas estructuradas y RAG sobre la Ley Marco de Licencia de Funcionamiento, la Ley General de Bodegueros y su reglamento, y normas de SUNAT (sesión 08)

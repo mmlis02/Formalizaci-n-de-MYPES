@@ -212,12 +212,6 @@ Cómo leer la tabla:
 
 ## 7. Modelo de negocio
 
-**Gratis para el bodeguero.** Pagan quienes ganan cuando un negocio se formaliza (hipótesis que validan las entrevistas):
-
-- **Municipalidades** con metas de formalización y de licencias otorgadas;
-- **cajas municipales y fintech**, que necesitan clientes con RUC para darles crédito;
-- **distribuidoras** que venden a bodegas y prefieren clientes formales.
-
 **Precio:** Gratis para el emprendedor. Pagan las municipalidades, que tienen metas de formalización: S/ 1,000 al mes por municipalidad, hasta 5,000 sesiones (costo de IA: unos S/ 65 al mes a S/ 0.013 por sesión). Segundo cliente posible: cajas municipales y fintech, que necesitan clientes con RUC para darles crédito. Hipótesis por validar con municipalidades.
 
 **Costo por usuario.** Se calcula con las llamadas reales de `logs/costos_llm.csv` (`python scripts/costo_por_usuario.py`). Una sesión típica tiene 1 audio de ~30 s, 1 extracción de la ficha y 3 preguntas al chat. Supuesto conservador: las 3 preguntas llaman al LLM.
