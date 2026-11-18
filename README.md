@@ -70,6 +70,7 @@ Hablé con dueños de diversos tipos de negocios (una bodega, venta por redes so
 ## 6. Demo
 
 **URL pública:** <https://formalizate.streamlit.app/#formaliza>
+
 **Video de respaldo (60–90 s):** <https://drive.google.com/file/d/1jyTBtaH1wFKhBQuZxAUsI5siCWaOXDM5/view?usp=drive_link>
 
 ### Capturas
